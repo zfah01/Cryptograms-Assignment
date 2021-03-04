@@ -1,4 +1,8 @@
 import java.util.*;
 public class Game {
-	public guesses ArrayList<String>();
+	public Game() {}
+	
+	public void getValue() {
+		
+	}
 }
