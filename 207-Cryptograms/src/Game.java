@@ -62,7 +62,7 @@ public class Game {
 				guesses.add(guess);
 				mapped--;
 				//check if guess was correct?
-				if(crypt.get(replaceAt).equals(guess)) {
+				if(Cryptogram.getLetter(value).equals(guess)) {
 					Player.addCorrectGuesses();
 				}
 				Player.addTotalGuesses();
@@ -72,7 +72,7 @@ public class Game {
 						crypt.set(i, guess);
 				}
 				guesses.add(guess);//add guess
-				if(crypt.get(replaceAt).equals(guess)) {
+				if(Cryptogram.getLetter(value).equals(guess)) {
 					Player.addCorrectGuesses();
 				}
 				Player.addTotalGuesses();
