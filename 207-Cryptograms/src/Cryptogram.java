@@ -4,7 +4,7 @@ public class Cryptogram {
 	private String encrypted;
 	private int frequencies[] = new int[26];
 	
-	public Cryptogram(String inputPhrase, String encrypted) {
+	public Cryptogram(String inputPhrase,String encrypted) {
 		phrase = inputPhrase;
 		this.encrypted = encrypted;
 		String alphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -17,6 +17,7 @@ public class Cryptogram {
 	public String getEncrypted() {
 		return encrypted;
 	}
+	
 	private int calculateFrequency(char letter, String Phrase) {
 		int count = 0;
 		for(int i = 0; i < Phrase.length(); i++) {
@@ -26,9 +27,12 @@ public class Cryptogram {
 		return count;
 	}
 	
+	public String getPhrase() {
+		return phrase;
+	}
+	
 	public int[] getFrequency() {
 		return frequencies;
 	}
-	
 	
 }

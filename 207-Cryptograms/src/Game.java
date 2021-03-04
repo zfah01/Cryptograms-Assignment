@@ -5,4 +5,8 @@ public class Game {
 	public void getValue() {
 		
 	}
+	
+	public static void main() {
+		
+	}
 }
