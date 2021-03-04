@@ -30,7 +30,7 @@ public class LettersCryptogram extends Cryptogram{
 		String StringEncrypted = super.getEncrypted();
 		ArrayList<String> letters = new ArrayList<String>();
 		for(int i = 0; i < 26; i++) {
-			if(!letters.contains(StringPhrase.charAt(i))) {
+			if(!letters.contains(convertToString(StringPhrase.charAt(i)))) {
 				phrase.add(convertToString(StringPhrase.charAt(i)));
 				encrpytion.add(convertToString(StringEncrypted.charAt(i)));
 			}
