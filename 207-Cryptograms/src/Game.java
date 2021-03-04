@@ -63,9 +63,9 @@ public class Game {
 				mapped--;
 				//check if guess was correct?
 				if(crypt.get(replaceAt).equals(guess)) {
-					//numCorrectGuesses++
+					Player.addCorrectGuesses();
 				}
-				//numGuesses++
+				Player.addTotalGuesses();
 			}else {//what happens if this not the first time the value is being mapped
 				for(int i = 0; i<crypt.size();i++) {
 					if(crypt.get(i).equals(crypt.get(valuePlaces.get(guessedAt))))//this compares what is in crypt to 
@@ -73,17 +73,17 @@ public class Game {
 				}
 				guesses.add(guess);//add guess
 				if(crypt.get(replaceAt).equals(guess)) {
-					//numCorrectGuesses++
+					Player.addCorrectGuesses();
 				}
-				//numGuesses++
+				Player.addTotalGuesses();
 			}
-			if(mapped == 0) {//checks if all values have been mapped
+			if(mapped == 0) {
 				for(int i = 0; i <answer.size();i++) {
-					if(crypt.get(i).equals(answer.get(i))==false) {//if something doesn't match
+					if(crypt.get(i).equals(answer.get(i))==false) {
 						System.out.println("User has failed cryptogram :(");
-						//update stats?
 					}else {
 						System.out.println("User has successfully completed cryptogram!!");
+						Player.addSolved();
 					}
 						
 				}
