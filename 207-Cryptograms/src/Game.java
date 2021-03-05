@@ -8,6 +8,7 @@ public class Game {
 	public ArrayList<Integer> valuePlaces = new ArrayList<Integer>();//keeps track of where the values were before being replaced
 	public ArrayList<String> answer;//will be changed to hold answer
 	private Cryptogram cryptogram; //only used in the decide cryptogram function to avoid an error
+	private ArrayList<String> phrases;
 	public Game() {
 		ArrayList<String> phrases = new ArrayList<>();
 	}
