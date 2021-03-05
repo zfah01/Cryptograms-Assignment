@@ -1,12 +1,67 @@
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+import java.io.*;
 public class Game {
 	public ArrayList<String> guesses;//array with letters guessed
 	public ArrayList<String> crypt; //= Cryptogram.getPhrase//array with cryptogram and guesses
 	public ArrayList<String> values = new ArrayList<String>();//holds the values the guess replaces onlywhen replaced
 	public ArrayList<Integer> valuePlaces = new ArrayList<Integer>();//keeps track of where the values were before being replaced
 	public ArrayList<String> answer;//will be changed to hold answer
+	private Cryptogram cryptogram; //only used in the decide cryptogram function to avoid an error
+	public Game() {
+		ArrayList<String> phrases = new ArrayList<>();
+	}
 	
-	public void enterLetter() {
+	public void onStartup() throws IOException {
+		File file = new File("CryptogramSentences.txt");
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		while (br.readLine() != null) {
+			phrases.add(br.readLine());
+		}
+	}
+	
+	//helper method to create the cryptogram
+	private Cryptogram createLetters() {
+		Cryptogram crypto = new LettersCryptogram(phrases.get(ThreadLocalRandom.current().nextInt(1, 14)));
+		return crypto;
+	}
+	
+	//helper method to create the cryptogram
+	private Cryptogram createNumbers() {
+		Cryptogram crypto = new NumbersCryptogram(phrases.get(ThreadLocalRandom.current().nextInt(1, 14)));
+		return crypto;
+	}
+	
+	public Cryptogram decideCryptogram(Scanner scan) {
+		boolean decided = false;
+		while(!decided) {
+			System.out.println("Would you like a numbers or letters cryptogram");
+			String type = scan.nextLine();
+			if (type.toLowerCase().equals("letters")) {
+				cryptogram = createLetters();
+			} else if(type.toLowerCase().equals("numbers")) {
+				cryptogram = createNumbers();
+			} else {
+				System.out.println("Sorry that doesn't appear to be an option, would you like numbers or letters?");
+			}
+		}
+		return cryptogram;
+	}
+	
+	public void printEncryption(Cryptogram crypto) {
+		String alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z"; //alphabet better cylces through the letters
+		int[] frequencies = crypto.getFrequency();
+		System.out.println(crypto.getEncrypted());
+		System.out.println("Frequencies");
+		System.out.println(alphabet);
+		for (int i = 0; i < 26; i++) {
+			System.out.print(frequencies[i] + " ");
+		}
+		System.out.println(""); //extra line to break things up
+	}
+	
+	public void enterLetter(Cryptogram crypto, Player player) {
+		crypt.add(crypto.getEncrypted());
 		boolean guessed = false;//checks if guess has been made or value has been replaced
 		boolean correct = false;//checks if whole cryptogram is correct
 		int mapped = crypt.size();
@@ -62,20 +117,20 @@ public class Game {
 				guesses.add(guess);
 				mapped--;
 				//check if guess was correct?
-				if(Cryptogram.getLetter(value).equals(guess)) {
-					Player.addCorrectGuesses();
+				if(crypto.getLetter(value).equals(guess)) {
+					player.addCorrectGuesses();
 				}
-				Player.addTotalGuesses();
+				player.addTotalGuesses();
 			}else {//what happens if this not the first time the value is being mapped
 				for(int i = 0; i<crypt.size();i++) {
 					if(crypt.get(i).equals(crypt.get(valuePlaces.get(guessedAt))))//this compares what is in crypt to 
 						crypt.set(i, guess);
 				}
 				guesses.add(guess);//add guess
-				if(Cryptogram.getLetter(value).equals(guess)) {
-					Player.addCorrectGuesses();
+				if(crypto.getLetter(value).equals(guess)) {
+					player.addCorrectGuesses();
 				}
-				Player.addTotalGuesses();
+				player.addTotalGuesses();
 			}
 			if(mapped == 0) {
 				for(int i = 0; i <answer.size();i++) {
@@ -83,12 +138,13 @@ public class Game {
 						System.out.println("User has failed cryptogram :(");
 					}else {
 						System.out.println("User has successfully completed cryptogram!!");
-						Player.addSolved();
+						player.addSolved();
 					}
 						
 				}
 			}
 
 		}
+		myObj.close();
 	}
 }
