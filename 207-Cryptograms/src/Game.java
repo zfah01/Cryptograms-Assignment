@@ -3,23 +3,30 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.io.*;
 public class Game {
 	public ArrayList<String> guesses;//array with letters guessed
-	public ArrayList<String> crypt; //= Cryptogram.getPhrase//array with cryptogram and guesses
+	public ArrayList<String> crypt; //array with cryptogram and guesses
 	public ArrayList<String> values = new ArrayList<String>();//holds the values the guess replaces onlywhen replaced
 	public ArrayList<Integer> valuePlaces = new ArrayList<Integer>();//keeps track of where the values were before being replaced
 	public ArrayList<String> answer;//will be changed to hold answer
 	private Cryptogram cryptogram; //only used in the decide cryptogram function to avoid an error
 	private ArrayList<String> phrases;
 	public Game() {
-		ArrayList<String> phrases = new ArrayList<>();
+		phrases = new ArrayList<>();
 	}
 	
 	public void onStartup() throws IOException {
 		File file = new File("CryptogramSentences.txt");
 		BufferedReader br = new BufferedReader(new FileReader(file));
-		while (br.readLine() != null) {
-			phrases.add(br.readLine());
+		while (true) {
+		String next = br.readLine();
+		System.out.println(next);
+		if (next == null) {
+			break;
 		}
+		phrases.add(next);
+		}
+		br.close();
 	}
+		
 	
 	//helper method to create the cryptogram
 	private Cryptogram createLetters() {
@@ -177,6 +184,7 @@ public class Game {
 			if(crypt.get(i).equals(crypt.get(guessedAt))){
 				
 				crypt.set(i, letter); // setting back letter to its original state
+				System.out.println("The mapped letter has been cleared");
 			}
 		}
 		myObj.close();

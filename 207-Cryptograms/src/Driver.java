@@ -25,7 +25,7 @@ public class Driver {
 			if(responce.equals("1")) {
 				game.enterLetter(crypto, player); //this exists in another branch
 			} else if (responce.equals(2)) {
-				//game.undoLetter(); //this also exists in another branch
+				game.undoLetter(); //this also exists in another branch
 			} else if (responce.equals(3)) {
 				break;
 			} else {
