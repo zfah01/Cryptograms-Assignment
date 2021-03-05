@@ -148,4 +148,38 @@ public class Game {
 		}
 		myObj.close();
 	}
+	
+	public void undoLetter() {    
+		
+		int guessedAt = 0;
+		
+
+		Scanner myObj = new Scanner(System.in);
+		System.out.println("Please enter a letter from the cryptogram to remove its mapped value");
+		String letter = myObj.nextLine();//this is the letter that has a mapped value
+		
+		// finding the position of the guessed letter
+		for(int i = 0; i < values.size();i++) {
+			if(values.get(i).equals(letter)) {
+				guessedAt = i; 
+				// if not found prints error message
+			}else
+				System.out.println("This letter has not been mapped!"); 
+		}
+		
+		
+            // getting the mapped letter of the value
+			guessedAt = valuePlaces.get(guessedAt);
+			
+		
+		//check if guess is equal to crypt letter
+		for(int i = 0; i < crypt.size();i++) {
+			if(crypt.get(i).equals(crypt.get(guessedAt))){
+				
+				crypt.set(i, letter); // setting back letter to its original state
+			}
+		}
+		myObj.close();
+	}
+
 }
