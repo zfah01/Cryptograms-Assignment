@@ -9,6 +9,10 @@ public class LettersCryptogram extends Cryptogram{
 		createMap();
 	}
 	
+	/* 
+	 * function that encrypts the phrase thats passed through using a ceaser cipher for
+	 * the user to see before solving it
+	 * */
 	private static String encrypt(String phrase) {
 		int offset = ThreadLocalRandom.current().nextInt(1, 26 + 1);
 		StringBuilder result = new StringBuilder();
@@ -25,6 +29,10 @@ public class LettersCryptogram extends Cryptogram{
 		return result.toString(); 	
 	}
 	
+	/* 
+	 * function that is called on the initialisation of the cryptogram that pairs
+	 * all of the letters properly to make finding the unencrypted version easier 
+	 * */
 	public void createMap() {
 		String StringPhrase = super.getPhrase();
 		String StringEncrypted = super.getEncrypted();
@@ -37,12 +45,26 @@ public class LettersCryptogram extends Cryptogram{
 		}
 	}
 	
+	/* 
+	 * function that inputs a char and converts it to a string 
+	 * because the arraylist doesn't accept chars
+	 * */
 	private String convertToString(char input) {
 		StringBuilder output = new StringBuilder();
 		output.append(input);
 		return output.toString();
 	}
+	
+	
+	/* 
+	 * the letter version of these that passes in a letter and gets the
+	 * unencrypted version of it, returns empty if letter doesn't exist
+	 * */
 	public String getLetter(String letter) {
-		return letter;
+		int location = encrpytion.indexOf(letter);
+		if(location == -1) {
+			return "";
+		}
+		return phrase.get(location);
 	}
 }
