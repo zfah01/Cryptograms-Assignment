@@ -2,7 +2,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.io.*;
 public class Game {
-	private ArrayList<String> phrases;
 	public ArrayList<String> guesses;//array with letters guessed
 	public ArrayList<String> crypt; //= Cryptogram.getPhrase//array with cryptogram and guesses
 	public ArrayList<String> values = new ArrayList<String>();//holds the values the guess replaces onlywhen replaced
