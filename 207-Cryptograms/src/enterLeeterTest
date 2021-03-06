@@ -76,3 +76,26 @@ class enterLeeterTest {
 		
 
 	}
+		void testNotComplete() {
+		//game.enterLetter(cryp, player).mapped = 6;
+		String guess = "g";
+		game.values.add(game.crypt.get(0));
+		game.values.add(game.crypt.get(1));
+		game.values.add(game.crypt.get(2));
+		game.values.add(game.crypt.get(4));
+		game.values.add(game.crypt.get(5));
+		game.valuePlaces.add(0);
+		game.valuePlaces.add(1);
+		game.valuePlaces.add(2);
+		game.valuePlaces.add(4);
+		game.valuePlaces.add(5);
+		game.guesses.add("t");
+		game.guesses.add("a");
+		game.guesses.add("s");
+		game.guesses.add("i");
+		game.guesses.add("n");
+		System.out.println(cryp.getEncrypted());
+		game.enterLetter(cryp, player);
+		assertTrue(player.getSolved() == 0);//checks that solved wasn't incremented
+		//assertEquals(guess, game.crypt.get(6));//input g for guess and last letter for value
+	}
