@@ -53,16 +53,7 @@ public class Cryptogram {
 		}
 	}
 	
-	/* 
-	 * function that inputs a char and converts it to a string 
-	 * because the arraylist doesn't accept chars
-	 * */
-	private String convertToString(char input) {
-		StringBuilder output = new StringBuilder();
-		output.append(input);
-		return output.toString();
-	}
-	
+
 	
 	/* 
 	 * the letter version of these that passes in a letter and gets the
