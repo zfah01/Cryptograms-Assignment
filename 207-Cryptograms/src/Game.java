@@ -2,13 +2,14 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.io.*;
 public class Game {
-	public ArrayList<String> guesses;//array with letters guessed
+	public ArrayList<String> guesses = new ArrayList();//array with letters guessed
 	public ArrayList<String> crypt = Cryptogram.getEncryptedArrayList();//array with cryptogram and guesses
 	public ArrayList<String> values = new ArrayList<String>();//holds the values the guess replaces onlywhen replaced
 	public ArrayList<Integer> valuePlaces = new ArrayList<Integer>();//keeps track of where the values were before being replaced
 	public ArrayList<String> answer = Cryptogram.getPhraseArrayList();//will be changed to hold answer
 	private Cryptogram cryptogram; //only used in the decide cryptogram function to avoid an error
 	private ArrayList<String> phrases;
+	public boolean checkPrint = false;//used for testing purposes
 	public Game() {
 		ArrayList<String> phrases = new ArrayList<>();
 	}
@@ -64,16 +65,16 @@ public class Game {
 	public void enterLetter(Cryptogram crypto, Player player) {
 		boolean guessed = false;//checks if guess has been made or value has been replaced
 		boolean correct = false;//checks if whole cryptogram is correct
-		int mapped =0;
+		int mapped =0;//keeps track of how many letters player has mapped
 		Scanner myObj = new Scanner(System.in);
 		System.out.println("Please enter your guess: ");
 		String guess = myObj.nextLine();//this is the guess
-		for(int i = 0; i < guesses.size(); i++) {//checks if letter has been guessed before
-			if(guesses.get(i).equals(guess))//change to different array
-				guessed = true;
+		if((guesses.isEmpty()==false)&&(guesses.contains(guess))){//checks if letter has been guessed before
+			guessed = true;
 		}
 		if(guessed == true) {
 			System.out.println("You have already guessed this letter. Please try again.");//error message if letter has been guessed
+			checkPrint = true;
 		}else {
 			guesses.add(guess);//guess has been added to array of guesses
 			System.out.println("Please enter the value to replace your guess with: ");
