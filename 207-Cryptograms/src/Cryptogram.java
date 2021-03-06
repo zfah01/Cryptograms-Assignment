@@ -45,12 +45,11 @@ public class Cryptogram {
 	 * all of the letters properly to make finding the unencrypted version easier 
 	 * */
 	public void createMap() {
-		ArrayList<String> letters = new ArrayList<String>();
-		for(int i = 0; i < 26; i++) {
-			if(!letters.contains(convertToString(phrase.charAt(i)))) {
-				Arrayphrase.add(convertToString(phrase.charAt(i)));
-				encrpytion.add(convertToString(encrypted.charAt(i)));
-			}
+		String[] phrasearray = phrase.split("");  //first it splits the string into an array and then converts to arraylist
+		String[] encryptarray = encrypted.split("");//because the arraylist is easier to use later on
+		for (int i = 0; i > phrase.length(); i++) {
+			Arrayphrase.add(phrasearray[i]);
+			encrpytion.add(encryptarray[i]);
 		}
 	}
 	

@@ -11,6 +11,7 @@ public class Game {
 	private ArrayList<String> phrases;
 	public Game() {
 		phrases = new ArrayList<>();
+		crypt = new ArrayList<>();
 	}
 	
 	public void onStartup() throws IOException {
@@ -47,8 +48,10 @@ public class Game {
 			String type = scan.nextLine();
 			if (type.toLowerCase().equals("letters")) {
 				cryptogram = createLetters();
+				decided = true;
 			} else if(type.toLowerCase().equals("numbers")) {
 				cryptogram = createNumbers();
+				decided = true;
 			} else {
 				System.out.println("Sorry that doesn't appear to be an option, would you like numbers or letters?");
 			}

@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class Driver {
 
 	public static void main(String[] args) {
-		boolean decided = false;
 		Game game = new Game();
 		try {
 			game.onStartup();
