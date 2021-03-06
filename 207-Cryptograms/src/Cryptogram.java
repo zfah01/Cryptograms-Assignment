@@ -67,4 +67,12 @@ public class Cryptogram {
 		return Arrayphrase.get(location);
 	}
 	
+	public ArrayList<String> getEncryptedArrayList() {
+		return encrpytion;
+	}
+	
+	public ArrayList<String> getPhraseArrayList() {
+		return Arrayphrase;
+	}
+	
 }
