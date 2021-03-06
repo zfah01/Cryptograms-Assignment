@@ -32,4 +32,13 @@ class CryptogramTest {
 		fail("Not yet implemented");
 	}
 
+	@Test
+	void getEncryptedArrayList() {
+		
+	}
+	
+	@Test
+	void getPhraseArrayList() {
+		
+	}
 }
