@@ -3,10 +3,10 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.io.*;
 public class Game {
 	public ArrayList<String> guesses;//array with letters guessed
-	public ArrayList<String> crypt; //= Cryptogram.getPhrase//array with cryptogram and guesses
+	public ArrayList<String> crypt = Cryptogram.getEncryptedArrayList();//array with cryptogram and guesses
 	public ArrayList<String> values = new ArrayList<String>();//holds the values the guess replaces onlywhen replaced
 	public ArrayList<Integer> valuePlaces = new ArrayList<Integer>();//keeps track of where the values were before being replaced
-	public ArrayList<String> answer;//will be changed to hold answer
+	public ArrayList<String> answer = Cryptogram.getPhraseArrayList();//will be changed to hold answer
 	private Cryptogram cryptogram; //only used in the decide cryptogram function to avoid an error
 	private ArrayList<String> phrases;
 	public Game() {
@@ -62,10 +62,9 @@ public class Game {
 	}
 	
 	public void enterLetter(Cryptogram crypto, Player player) {
-		crypt.add(crypto.getEncrypted());
 		boolean guessed = false;//checks if guess has been made or value has been replaced
 		boolean correct = false;//checks if whole cryptogram is correct
-		int mapped = crypt.size();
+		int mapped =0;
 		Scanner myObj = new Scanner(System.in);
 		System.out.println("Please enter your guess: ");
 		String guess = myObj.nextLine();//this is the guess
@@ -116,7 +115,7 @@ public class Game {
 						crypt.set(i, guess);
 				}
 				guesses.add(guess);
-				mapped--;
+				mapped++;
 				//check if guess was correct?
 				if(crypto.getLetter(value).equals(guess)) {
 					player.addCorrectGuesses();
@@ -133,7 +132,7 @@ public class Game {
 				}
 				player.addTotalGuesses();
 			}
-			if(mapped == 0) {
+			if(mapped == crypt.size()) {
 				for(int i = 0; i <answer.size();i++) {
 					if(crypt.get(i).equals(answer.get(i))==false) {
 						System.out.println("User has failed cryptogram :(");
