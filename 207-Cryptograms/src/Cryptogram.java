@@ -48,8 +48,10 @@ public class Cryptogram {
 		String[] phrasearray = phrase.split("");  //first it splits the string into an array and then converts to arraylist
 		String[] encryptarray = encrypted.split("");//because the arraylist is easier to use later on
 		for (int i = 0; i > phrase.length(); i++) {
-			Arrayphrase.add(phrasearray[i]);
-			encrpytion.add(encryptarray[i]);
+			if(!Arrayphrase.contains(phrasearray[i])) {
+				Arrayphrase.add(phrasearray[i]);
+				encrpytion.add(encryptarray[i]);
+			}
 		}
 	}
 	
