@@ -50,16 +50,13 @@ public class Cryptogram {
 	 * all of the letters properly to make finding the unencrypted version easier 
 	 * */
 	public void createMap() {
-		System.out.println("Createmap has started");
 		char[] phrasearray = phrase.toCharArray();  //first it splits the string into an array and then converts to arraylist
 		char[] encryptarray = encrypted.toCharArray();//because the arraylist is easier to use later on
-		System.out.println(encryptarray[0] + "make check if its been filled");
+
 		for (int i = 0; i < phrase.length(); i++) {
 				Arrayphrase.add(String.valueOf(phrasearray[i]));
-				System.out.println(phrasearray[i] + " loop value " + i); 
 				encrpytion.add(String.valueOf(encryptarray[i]));
 		}
-		System.out.println("The end of createMap");
 	}
 	
 
