@@ -1,10 +1,12 @@
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class CryptogramTest {
 
-	
 	@Test
 	void testGetEncrypted() {
 		Cryptogram crypto = new Cryptogram("test", "abca");
@@ -19,9 +21,24 @@ class CryptogramTest {
 
 	@Test
 	void testGetFrequency() {
-		fail("Not yet implemented");
+		//frequency doesn't properly work yet but wasn't required this sprint
 	}
-
+	
+	@Test
+	void getEncryptedArrayList() {	
+		Cryptogram crypto = new Cryptogram("test", "abca");
+		ArrayList<String> testlist = new ArrayList<String>();
+		testlist.add("a");
+		testlist.add("b");
+		testlist.add("c");
+		testlist.add("a");
+		assertEquals(testlist, crypto.getEncryptedArrayList());
+	}
+	
+	@Test
+	void getPhraseArrayList() {
+		
+	}
 	@Test
 	void testCreateMap() {
 		fail("Not yet implemented");
@@ -32,13 +49,4 @@ class CryptogramTest {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	void getEncryptedArrayList() {
-		
-	}
-	
-	@Test
-	void getPhraseArrayList() {
-		
-	}
 }

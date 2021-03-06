@@ -10,6 +10,9 @@ public class Cryptogram {
 	public Cryptogram(String inputPhrase,String encrypted) {
 		phrase = inputPhrase;
 		this.encrypted = encrypted;
+		Arrayphrase = new ArrayList<>();
+		encrpytion = new ArrayList<>();
+		createMap();
 		String alphabet = "abcdefghijklmnopqrstuvwxyz";
 		for(int i = 0; i<26; i++) {
 			frequencies[i] = calculateFrequency(alphabet.charAt(i), phrase);
@@ -27,7 +30,9 @@ public class Cryptogram {
 			if(Phrase.charAt(i) == letter)
 				count++;
 		}
+		//System.out.println(count);
 		return count;
+		
 	}
 	
 	public String getPhrase() {
@@ -45,13 +50,13 @@ public class Cryptogram {
 	 * all of the letters properly to make finding the unencrypted version easier 
 	 * */
 	public void createMap() {
-		String[] phrasearray = phrase.split("");  //first it splits the string into an array and then converts to arraylist
-		String[] encryptarray = encrypted.split("");//because the arraylist is easier to use later on
+		char[] phrasearray = phrase.toCharArray();  //first it splits the string into an array and then converts to arraylist
+		char[] encryptarray = encrypted.toCharArray();//because the arraylist is easier to use later on
+		//System.out.println(encryptarray[1]);
 		for (int i = 0; i > phrase.length(); i++) {
-			if(!Arrayphrase.contains(phrasearray[i])) {
-				Arrayphrase.add(phrasearray[i]);
-				encrpytion.add(encryptarray[i]);
-			}
+				Arrayphrase.add(String.valueOf(phrasearray[i]));
+				System.out.println(phrasearray[i]);
+				encrpytion.add(String.valueOf(encryptarray[i]));
 		}
 	}
 	

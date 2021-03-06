@@ -19,7 +19,7 @@ public class Game {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		while (true) {
 		String next = br.readLine();
-		System.out.println(next);
+		//System.out.println(next);
 		if (next == null) {
 			break;
 		}
