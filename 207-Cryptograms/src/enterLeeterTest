@@ -1,0 +1,78 @@
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+
+import org.junit.Rule;
+import org.junit.jupiter.api.Test;
+
+class enterLeeterTest {
+	Player player = new Player();
+	Cryptogram cryp = new LettersCryptogram("testing");
+	Game game = new Game();
+	ArrayList<String> values = new ArrayList();
+	
+/*
+	@Test
+	void testguess() {
+		String guess = "t";//make sure this is what you put in the scanner when asked
+		//the value entered should be the first letter displayed in terminal
+		System.out.println(cryp.getEncrypted());
+		game.enterLetter(cryp, player);
+		assertEquals(guess, game.crypt.get(0));//check that guess has replaced where value was
+		//assertEquals(value, values.get(0));
+	}
+	
+	*/
+	
+	/*
+	@Test
+	void testErrorMessage() {
+		game.guesses.add("a");
+		game.values.add(game.crypt.get(0));
+		game.valuePlaces.add(0);
+		System.out.println(cryp.getEncrypted());
+		game.enterLetter(cryp, player);//input a
+		assertTrue(game.checkPrint);
+	}
+	*/
+	
+	/*
+	@Test
+	void testAlreadyMapped() {
+		String guess = "t";//make sure this is what you put in the scanner when asked
+		//the value entered should be the first letter displayed in terminal
+		game.values.add(game.crypt.get(0));
+		game.valuePlaces.add(0);
+		System.out.println(cryp.getEncrypted());
+		game.enterLetter(cryp, player);
+		//enter y for test to pass
+		assertEquals(guess, game.crypt.get(0));//check that guess has replaced where value was
+		//assertEquals(value, values.get(0));
+	}
+	*/
+	
+	@Test
+	void testComplete() {
+		game.enterLetter(cryp, player).mapped = 6;
+		String guess = "g";
+		game.values.add(game.crypt.get(0));
+		game.values.add(game.crypt.get(1));
+		game.values.add(game.crypt.get(2));
+		game.values.add(game.crypt.get(4));
+		game.values.add(game.crypt.get(5));
+		game.valuePlaces.add(0);
+		game.valuePlaces.add(1);
+		game.valuePlaces.add(2);
+		game.valuePlaces.add(4);
+		game.valuePlaces.add(5);
+		game.guesses.add("t");
+		game.guesses.add("e");
+		game.guesses.add("s");
+		game.guesses.add("i");
+		game.guesses.add("n");
+		System.out.println(cryp.getEncrypted());
+		game.enterLetter(cryp, player);
+		assertEquals(guess, game.crypt.get(6));//input g for guess and last letter for value
+		
+
+	}
