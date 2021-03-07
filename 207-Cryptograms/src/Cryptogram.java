@@ -4,8 +4,8 @@ public class Cryptogram {
 	private String phrase;
 	private String encrypted;
 	private int frequencies[] = new int[26];
-	private ArrayList<String> Arrayphrase;
-	private ArrayList<String> encrpytion;
+	private static ArrayList<String> Arrayphrase;
+	private static ArrayList<String> encrpytion;
 	
 	public Cryptogram(String inputPhrase,String encrypted) {
 		phrase = inputPhrase;
@@ -58,6 +58,7 @@ public class Cryptogram {
 				encrpytion.add(String.valueOf(encryptarray[i]));
 		}
 	}
+
 	
 
 	
@@ -71,6 +72,9 @@ public class Cryptogram {
 			return "";
 		}
 		return Arrayphrase.get(location);
+	}
+	public static ArrayList<String> getEncryptedArrayList() {
+		return encrpytion;
 	}
 	
 	public ArrayList<String> getEncryptedArrayList() {
