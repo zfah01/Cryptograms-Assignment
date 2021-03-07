@@ -4,8 +4,8 @@ public class Cryptogram {
 	private String phrase;
 	private String encrypted;
 	private int frequencies[] = new int[26];
-	private ArrayList<String> Arrayphrase;
-	private ArrayList<String> encrpytion;
+	private static ArrayList<String> Arrayphrase;
+	private static ArrayList<String> encrpytion;
 	
 	public Cryptogram(String inputPhrase,String encrypted) {
 		phrase = inputPhrase;
@@ -45,14 +45,14 @@ public class Cryptogram {
 	 * all of the letters properly to make finding the unencrypted version easier 
 	 * */
 	public void createMap() {
-		ArrayList<String> letters = new ArrayList<String>();
-		for(int i = 0; i < 26; i++) {
-			if(!letters.contains(convertToString(phrase.charAt(i)))) {
-				Arrayphrase.add(convertToString(phrase.charAt(i)));
-				encrpytion.add(convertToString(encrypted.charAt(i)));
-			}
+		String[] phrasearray = phrase.split("");  //first it splits the string into an array and then converts to arraylist
+		String[] encryptarray = encrypted.split("");//because the arraylist is easier to use later on
+		for (int i = 0; i > phrase.length(); i++) {
+			Arrayphrase.add(phrasearray[i]);
+			encrpytion.add(encryptarray[i]);
 		}
 	}
+
 	
 	/* 
 	 * function that inputs a char and converts it to a string 
@@ -76,5 +76,12 @@ public class Cryptogram {
 		}
 		return Arrayphrase.get(location);
 	}
+	public static ArrayList<String> getEncryptedArrayList() {
+		return encrpytion;
+	}
 	
+	public static ArrayList<String> getPhraseArrayList() {
+		return Arrayphrase;
+	}
+
 }
