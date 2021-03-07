@@ -1,4 +1,3 @@
-
 public class Player {
 	private int totalGuesses;
 	private int correctGuesses;
@@ -7,6 +6,10 @@ public class Player {
 		totalGuesses = 0;
 		correctGuesses = 0;
 		solved = 0;
+	}
+	
+		public int getSolved() {
+		return solved;
 	}
 	
 	public void addTotalGuesses() {
