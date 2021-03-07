@@ -9,7 +9,7 @@ public class Game {
 	public ArrayList<String> answer;//will be changed to hold answer
 	private Cryptogram cryptogram; //only used in the decide cryptogram function to avoid an error
 	private ArrayList<String> phrases;
-	public Game() {
+	public Game() throws IOException {
 		phrases = new ArrayList<>();
 		crypt = new ArrayList<>();
 	}
@@ -18,16 +18,23 @@ public class Game {
 		File file = new File("CryptogramSentences.txt");
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		while (true) {
-		String next = br.readLine();
+			String next = br.readLine();
 		//System.out.println(next);
-		if (next == null) {
-			break;
-		}
-		phrases.add(next);
+			if (next == null) {
+				break;
+			} else {
+				phrases.add(next);
+			}
 		}
 		br.close();
 	}
-		
+	
+	/* 
+	 * 	getter method for testing
+	 * */
+	public ArrayList<String> getPhrases() {
+		return phrases;
+	}
 	
 	//helper method to create the cryptogram
 	private Cryptogram createLetters() {
@@ -45,7 +52,7 @@ public class Game {
 		boolean decided = false;
 		while(!decided) {
 			System.out.println("Would you like a numbers or letters cryptogram");
-			String type = scan.nextLine();
+			String type = scan.next();
 			if (type.toLowerCase().equals("letters")) {
 				cryptogram = createLetters();
 				decided = true;
