@@ -4,6 +4,7 @@ import java.io.*;
 public class Game {
 	public ArrayList<String> guesses = new ArrayList();//array with letters guessed
 	public ArrayList<String> crypt = Cryptogram.getEncryptedArrayList();//array with cryptogram and guesses
+	public ArrayList<String> crypt2 = Cryptogram.getEncryptedArrayList();//hold unchanged encrypted cryptogram
 	public ArrayList<String> values = new ArrayList<String>();//holds the values the guess replaces onlywhen replaced
 	public ArrayList<Integer> valuePlaces = new ArrayList<Integer>();//keeps track of where the values were before being replaced
 	public ArrayList<String> answer = Cryptogram.getPhraseArrayList();//will be changed to hold answer
@@ -98,8 +99,8 @@ public class Game {
 					return;//kill the method
 			}
 			//checks if value is in cryptogram
-			for(int i = 0; i < crypt.size();i++) {
-				if(crypt.get(i).equals(value)) {
+			for(int i = 0; i < crypt2.size();i++) {
+				if(crypt2.get(i).equals(value)) {
 					valueThere = true;
 					replaceAt = i;//need a value where the value definitely has been
 				}
@@ -111,9 +112,11 @@ public class Game {
 			if(guessed ==false)	{//what happens if this is the first time the value is being mapped
 				values.add(value);
 				valuePlaces.add(replaceAt);//need to remember where the previous value was
-				for(int i = 0; i<crypt.size();i++) {
-					if(crypt.get(i).equals(value))
-						crypt.set(i, guess);
+				for(int i = 0; i<crypt2.size();i++) {
+					if(crypt2.get(i).equals(value)) {
+						crypt.remove(i);
+						crypt.add(i, guess);
+					}
 				}
 				guesses.add(guess);
 				mapped++;
@@ -123,9 +126,11 @@ public class Game {
 				}
 				player.addTotalGuesses();
 			}else {//what happens if this not the first time the value is being mapped
-				for(int i = 0; i<crypt.size();i++) {
-					if(crypt.get(i).equals(crypt.get(valuePlaces.get(guessedAt))))//this compares what is in crypt to 
-						crypt.set(i, guess);
+				for(int i = 0; i<crypt2.size();i++) {
+					if(crypt2.get(i).equals(crypt.get(valuePlaces.get(guessedAt)))) {//this compares what is in crypt to 
+						crypt.remove(i);
+						crypt.add(i, guess);
+					}
 				}
 				guesses.add(guess);//add guess
 				if(crypto.getLetter(value).equals(guess)) {
@@ -133,12 +138,14 @@ public class Game {
 				}
 				player.addTotalGuesses();
 			}
-			if(mapped == 2*(crypt.size())) {
+			if(mapped == (crypt2.size()/2)) {
 				for(int i = 0; i <answer.size();i++) {
-					if(crypt.get(i).equals(answer.get(i))==false) {
-						correct = false;
-					}else 
+					if(crypt.get(i).equals(answer.get(i))) {
 						correct = true;
+					}else {
+						correct = false;
+						break;
+					}
 				}
 				if(correct == false) {
 				System.out.println("User has failed cryptogram :(");
