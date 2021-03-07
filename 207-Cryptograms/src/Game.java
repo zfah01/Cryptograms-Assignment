@@ -38,6 +38,11 @@ public class Game {
 		return phrases;
 	}
 	
+	//public for testing purposes
+	public void establishCrypt(Cryptogram crypto) {
+		crypt = crypto.getEncryptedArrayList();
+		crypt2 = crypto.getEncryptedArrayList();
+	}
 	//helper method to create the cryptogram
 	private Cryptogram createLetters() {
 		Cryptogram crypto = new LettersCryptogram(phrases.get(ThreadLocalRandom.current().nextInt(1, 14)));
@@ -65,8 +70,7 @@ public class Game {
 				System.out.println("Sorry that doesn't appear to be an option, would you like numbers or letters?");
 			}
 		}
-		crypt = Cryptogram.getEncryptedArrayListStatic();
-		crypt2 = Cryptogram.getEncryptedArrayListStatic();
+		establishCrypt(cryptogram);
 		return cryptogram;
 	}
 	

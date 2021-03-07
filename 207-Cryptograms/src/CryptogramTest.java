@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,15 +11,18 @@ class CryptogramTest {
  * Im using the cryptogram class itself because all the functions are in it
  * and you can't predict the encryption as its randomised every time
  * */
+	Cryptogram crypto;
+	@BeforeAll
+	void setup() {
+		crypto = new Cryptogram("test", "abca");
+	}
 	@Test
 	void testGetEncrypted() {
-		Cryptogram crypto = new Cryptogram("test", "abca");
 		assertEquals("abca", crypto.getEncrypted());
 	}
 
 	@Test
 	void testGetPhrase() {
-		Cryptogram crypto = new Cryptogram("test", "abca");
 		assertEquals("test", crypto.getPhrase());
 	}
 
@@ -29,7 +33,6 @@ class CryptogramTest {
 	
 	@Test
 	void getEncryptedArrayList() {	
-		Cryptogram crypto = new Cryptogram("test", "abca");
 		ArrayList<String> testlist = new ArrayList<String>();
 		testlist.add("a");
 		testlist.add("b");
@@ -40,7 +43,6 @@ class CryptogramTest {
 	
 	@Test
 	void getPhraseArrayList() {
-		Cryptogram crypto = new Cryptogram("test", "abca");
 		ArrayList<String> testlist = new ArrayList<String>();
 		testlist.add("t");
 		testlist.add("e");
@@ -50,7 +52,6 @@ class CryptogramTest {
 	}
 	@Test
 	void testCreateMap() {
-		Cryptogram crypto = new Cryptogram("test", "abca");
 		//the create map works if both the arraylists are equal to what the parameters are
 		ArrayList<String> phrase = new ArrayList<String>();
 		ArrayList<String> encryp = new ArrayList<String>();
@@ -63,7 +64,6 @@ class CryptogramTest {
 
 	@Test
 	void testGetLetter() {
-		Cryptogram crypto = new Cryptogram("test", "abca");
 		assertEquals("e", crypto.getLetter("b"));
 		assertEquals("t", crypto.getLetter("a")); //2 instances of the same letter to make sure it works still
 	}

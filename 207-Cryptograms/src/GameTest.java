@@ -4,11 +4,22 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GameTest {
-	
+	Game game;
+	Cryptogram cryp;
+	Player player;
+	@BeforeEach
+	void init() throws IOException {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("Testing");
+		Player player = new Player();
+		game.establishCrypt(cryp);
+		game.onStartup();
+	}
 	@Test
 	void testOnStartup() throws IOException {
 		ArrayList<String> test= new ArrayList<String>(); //arraylist with expected input
@@ -28,8 +39,6 @@ class GameTest {
 		test.add("WE WERE ALL HAPPY");
 		test.add("I BOUGHT YOU A GIFT FOR YOUR BIRTHDAY");
 		test.add("STAY INSIDE YOUR HOME TO BE SAFE");
-		Game game = new Game();
-		game.onStartup();
 		assertEquals(test, game.getPhrases());
 	}
 
@@ -54,8 +63,6 @@ class GameTest {
 		} */
 	@Test
 	void testDecideCryptogramforLetter() throws IOException {
-		Game game = new Game();
-		game.onStartup();
 		ByteArrayInputStream in = new ByteArrayInputStream("letters".getBytes());
 		System.setIn(in);
 		Scanner scan = new Scanner(System.in);
@@ -67,8 +74,6 @@ class GameTest {
 	//theres a lot of distincations between so better keep them seperate
 	@Test
 	void testDecideCryptogramforNumber() throws IOException {
-		Game game = new Game();
-		game.onStartup();
 		ByteArrayInputStream in = new ByteArrayInputStream("numbers".getBytes());
 		System.setIn(in);
 		Scanner scan = new Scanner(System.in);
@@ -77,10 +82,9 @@ class GameTest {
 		assertTrue(Character.isDigit(firstLetter));
 	}
 	
+	//this does work, just the print stream isn't an exact match
 	@Test
 	void testPrintEncryption() throws IOException {
-		Game game = new Game();
-		game.onStartup();
 		//String input = "Not good answer";
 		PrintStream standardout = System.out;
 		ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -91,5 +95,70 @@ class GameTest {
 		assertEquals(expected, outputStreamCaptor.toString().trim());
 		System.setOut(standardout);
 	}
-
+	
+	/* The next 3 tests can only be run 1 at a time because they all use a scanner*/
+	@Test
+	void testguess() {
+		String guess = "t";//make sure this is what you put in the scanner when asked
+		//the value entered should be the first letter displayed in terminal
+		System.out.println(cryp.getEncrypted());
+		game.enterLetter(cryp, player);
+		assertEquals(guess, game.crypt.get(0));//check that guess has replaced where value was
+		
+	}
+	
+	@Test
+	void testErrorMessage() {
+		game.guesses.add("a");
+		game.values.add(game.crypt.get(0));
+		game.valuePlaces.add(0);
+		System.out.println(cryp.getEncrypted());
+		game.enterLetter(cryp, player);//input a
+		assertTrue(game.checkPrint);
+	}
+	
+	@Test
+	void testAlreadyMapped() {
+		String guess = "t";//make sure this is what you put in the scanner when asked
+		//the value entered should be the first letter displayed in terminal
+		game.values.add(game.crypt.get(0));
+		game.valuePlaces.add(0);
+		System.out.println(cryp.getEncrypted());
+		game.enterLetter(cryp, player);
+		//enter y for test to pass
+		assertEquals(guess, game.crypt.get(0));//check that guess has replaced where value was
+		//assertEquals(value, values.get(0));
+	}
+	
+	@Test
+	void testNotComplete() {
+		game.mapped = 6;
+		String guess = "g";
+		game.values.add(game.crypt.get(0));
+		game.values.add(game.crypt.get(1));
+		game.values.add(game.crypt.get(2));
+		game.values.add(game.crypt.get(4));
+		game.values.add(game.crypt.get(5));
+		game.valuePlaces.add(0);
+		game.valuePlaces.add(1);
+		game.valuePlaces.add(2);
+		game.valuePlaces.add(4);
+		game.valuePlaces.add(5);
+		game.guesses.add("t");
+		game.guesses.add("a");
+		game.guesses.add("s");
+		game.guesses.add("i");
+		game.guesses.add("n");
+		game.crypt.set(0, "t");
+		game.crypt.set(1, "a");
+		game.crypt.set(2, "s");
+		game.crypt.set(3, "t");
+		game.crypt.set(4, "i");
+		game.crypt.set(5, "n");
+		System.out.println(cryp.getEncrypted());
+		System.out.println(game.crypt.size());
+		game.enterLetter(cryp, player);
+		assertTrue(player.getSolved() == 0);//checks that solved wasn't incremented
+		
+	}
 }
