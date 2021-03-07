@@ -10,6 +10,7 @@ public class Game {
 	private Cryptogram cryptogram; //only used in the decide cryptogram function to avoid an error
 	private ArrayList<String> phrases;
 	public boolean checkPrint = false;//used for testing purposes
+	public int mapped = 0;//keeps track of how many letters user has mapped a value to
 	public Game() {
 		ArrayList<String> phrases = new ArrayList<>();
 	}
@@ -65,7 +66,6 @@ public class Game {
 	public void enterLetter(Cryptogram crypto, Player player) {
 		boolean guessed = false;//checks if guess has been made or value has been replaced
 		boolean correct = false;//checks if whole cryptogram is correct
-		int mapped =0;//keeps track of how many letters player has mapped
 		Scanner myObj = new Scanner(System.in);
 		System.out.println("Please enter your guess: ");
 		String guess = myObj.nextLine();//this is the guess
@@ -133,15 +133,18 @@ public class Game {
 				}
 				player.addTotalGuesses();
 			}
-			if(mapped == crypt.size()) {
+			if(mapped == 2*(crypt.size())) {
 				for(int i = 0; i <answer.size();i++) {
 					if(crypt.get(i).equals(answer.get(i))==false) {
-						System.out.println("User has failed cryptogram :(");
-					}else {
-						System.out.println("User has successfully completed cryptogram!!");
-						player.addSolved();
-					}
-						
+						correct = false;
+					}else 
+						correct = true;
+				}
+				if(correct == false) {
+				System.out.println("User has failed cryptogram :(");
+				}else {
+					System.out.println("User has successfully completed cryptogram!!");
+					player.addSolved();
 				}
 			}
 
