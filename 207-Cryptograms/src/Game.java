@@ -2,12 +2,12 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.io.*;
 public class Game {
-	public ArrayList<String> guesses = new ArrayList();//array with letters guessed
-	public ArrayList<String> crypt = Cryptogram.getEncryptedArrayList();//array with cryptogram and guesses
-	public ArrayList<String> crypt2 = Cryptogram.getEncryptedArrayList();//hold unchanged encrypted cryptogram
+	public ArrayList<String> guesses = new ArrayList<String>();//array with letters guessed
+	public ArrayList<String> crypt;//array with cryptogram and guesses
+	public ArrayList<String> crypt2 = Cryptogram.getEncryptedArrayListStatic();//hold unchanged encrypted cryptogram
 	public ArrayList<String> values = new ArrayList<String>();//holds the values the guess replaces onlywhen replaced
 	public ArrayList<Integer> valuePlaces = new ArrayList<Integer>();//keeps track of where the values were before being replaced
-	public ArrayList<String> answer = Cryptogram.getPhraseArrayList();//will be changed to hold answer
+	public ArrayList<String> answer = Cryptogram.getPhraseArrayListStatic();//will be changed to hold answer
 	private Cryptogram cryptogram; //only used in the decide cryptogram function to avoid an error
 	private ArrayList<String> phrases = new ArrayList<>();
 	public boolean checkPrint = false;//used for testing purposes
@@ -65,6 +65,8 @@ public class Game {
 				System.out.println("Sorry that doesn't appear to be an option, would you like numbers or letters?");
 			}
 		}
+		crypt = Cryptogram.getEncryptedArrayListStatic();
+		crypt2 = Cryptogram.getEncryptedArrayListStatic();
 		return cryptogram;
 	}
 	
