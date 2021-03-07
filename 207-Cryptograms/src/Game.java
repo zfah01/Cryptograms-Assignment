@@ -16,12 +16,20 @@ public class Game {
 		ArrayList<String> phrases = new ArrayList<>();
 	}
 	
+	
 	public void onStartup() throws IOException {
 		File file = new File("CryptogramSentences.txt");
 		BufferedReader br = new BufferedReader(new FileReader(file));
-		while (br.readLine() != null) {
-			phrases.add(br.readLine());
+		while (true) {
+			String next = br.readLine();
+		//System.out.println(next);
+			if (next == null) {
+				break;
+			} else {
+				phrases.add(next);
+			}
 		}
+		br.close();
 	}
 	
 	//helper method to create the cryptogram
