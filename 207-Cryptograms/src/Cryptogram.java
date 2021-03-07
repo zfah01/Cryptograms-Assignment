@@ -10,6 +10,9 @@ public class Cryptogram {
 	public Cryptogram(String inputPhrase,String encrypted) {
 		phrase = inputPhrase;
 		this.encrypted = encrypted;
+		Arrayphrase = new ArrayList<>();
+		encrpytion = new ArrayList<>();
+		createMap();
 		String alphabet = "abcdefghijklmnopqrstuvwxyz";
 		for(int i = 0; i<26; i++) {
 			frequencies[i] = calculateFrequency(alphabet.charAt(i), phrase);
@@ -27,7 +30,9 @@ public class Cryptogram {
 			if(Phrase.charAt(i) == letter)
 				count++;
 		}
+		//System.out.println(count);
 		return count;
+		
 	}
 	
 	public String getPhrase() {
@@ -45,25 +50,17 @@ public class Cryptogram {
 	 * all of the letters properly to make finding the unencrypted version easier 
 	 * */
 	public void createMap() {
-		String[] phrasearray = phrase.split("");  //first it splits the string into an array and then converts to arraylist
-		String[] encryptarray = encrypted.split("");//because the arraylist is easier to use later on
-		for (int i = 0; i > phrase.length(); i++) {
-			Arrayphrase.add(phrasearray[i]);
-			encrpytion.add(encryptarray[i]);
+		char[] phrasearray = phrase.toCharArray();  //first it splits the string into an array and then converts to arraylist
+		char[] encryptarray = encrypted.toCharArray();//because the arraylist is easier to use later on
+
+		for (int i = 0; i < phrase.length(); i++) {
+				Arrayphrase.add(String.valueOf(phrasearray[i]));
+				encrpytion.add(String.valueOf(encryptarray[i]));
 		}
 	}
 
 	
-	/* 
-	 * function that inputs a char and converts it to a string 
-	 * because the arraylist doesn't accept chars
-	 * */
-	private String convertToString(char input) {
-		StringBuilder output = new StringBuilder();
-		output.append(input);
-		return output.toString();
-	}
-	
+
 	
 	/* 
 	 * the letter version of these that passes in a letter and gets the
@@ -80,8 +77,12 @@ public class Cryptogram {
 		return encrpytion;
 	}
 	
-	public static ArrayList<String> getPhraseArrayList() {
+	public ArrayList<String> getEncryptedArrayList() {
+		return encrpytion;
+	}
+	
+	public ArrayList<String> getPhraseArrayList() {
 		return Arrayphrase;
 	}
-
+	
 }

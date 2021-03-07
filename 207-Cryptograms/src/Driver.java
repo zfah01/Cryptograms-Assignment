@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class Driver {
 
 	public static void main(String[] args) {
-		boolean decided = false;
 		Game game = new Game();
 		try {
 			game.onStartup();
@@ -24,9 +23,9 @@ public class Driver {
 			responce = myScan.nextLine();
 			if(responce.equals("1")) {
 				game.enterLetter(crypto, player); //this exists in another branch
-			} else if (responce.equals(2)) {
-				//game.undoLetter(); //this also exists in another branch
-			} else if (responce.equals(3)) {
+			} else if (responce.equals("2")) {
+				game.undoLetter(); //this also exists in another branch
+			} else if (responce.equals("3")) {
 				break;
 			} else {
 				System.out.println("I'm sorry that doesn't seem to be a valid input, please try again");
@@ -34,3 +33,5 @@ public class Driver {
 		}
 	}
 }
+
+

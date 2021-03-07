@@ -31,6 +31,13 @@ public class Game {
 		br.close();
 	}
 	
+	/* 
+	 * 	getter method for testing
+	 * */
+	public ArrayList<String> getPhrases() {
+		return phrases;
+	}
+	
 	//helper method to create the cryptogram
 	private Cryptogram createLetters() {
 		Cryptogram crypto = new LettersCryptogram(phrases.get(ThreadLocalRandom.current().nextInt(1, 14)));
@@ -47,11 +54,13 @@ public class Game {
 		boolean decided = false;
 		while(!decided) {
 			System.out.println("Would you like a numbers or letters cryptogram");
-			String type = scan.nextLine();
+			String type = scan.next();
 			if (type.toLowerCase().equals("letters")) {
 				cryptogram = createLetters();
+				decided = true;
 			} else if(type.toLowerCase().equals("numbers")) {
 				cryptogram = createNumbers();
+				decided = true;
 			} else {
 				System.out.println("Sorry that doesn't appear to be an option, would you like numbers or letters?");
 			}
@@ -194,6 +203,7 @@ public class Game {
 			if(crypt.get(i).equals(crypt.get(guessedAt))){
 				
 				crypt.set(i, letter); // setting back letter to its original state
+				System.out.println("The mapped letter has been cleared");
 			}
 		}
 		myObj.close();
