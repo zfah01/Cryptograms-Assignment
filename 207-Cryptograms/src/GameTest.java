@@ -9,19 +9,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GameTest {
-	Game game;
-	Cryptogram cryp;
-	Player player;
-	@BeforeEach
-	void init() throws IOException {
-		Game game = new Game();
-		Cryptogram cryp = new LettersCryptogram("Testing");
-		Player player = new Player();
-		game.establishCrypt(cryp);
-		game.onStartup();
-	}
 	@Test
 	void testOnStartup() throws IOException {
+		Game game = new Game();
+		game.onStartup();
 		ArrayList<String> test= new ArrayList<String>(); //arraylist with expected input
 		test.add("THAT DOG WAS FOLLOWING ME ALL DAY");
 		test.add("EVEN I HATE ME SOMETIMES");
@@ -63,6 +54,11 @@ class GameTest {
 		} */
 	@Test
 	void testDecideCryptogramforLetter() throws IOException {
+		Game game = new Game();
+		game.onStartup();
+		Cryptogram cryp = new LettersCryptogram("Testing");
+		Player player = new Player();
+		game.establishCrypt(cryp);
 		ByteArrayInputStream in = new ByteArrayInputStream("letters".getBytes());
 		System.setIn(in);
 		Scanner scan = new Scanner(System.in);
@@ -74,6 +70,11 @@ class GameTest {
 	//theres a lot of distincations between so better keep them seperate
 	@Test
 	void testDecideCryptogramforNumber() throws IOException {
+		Game game = new Game();
+		game.onStartup();
+		Cryptogram cryp = new LettersCryptogram("Testing");
+		Player player = new Player();
+		game.establishCrypt(cryp);
 		ByteArrayInputStream in = new ByteArrayInputStream("numbers".getBytes());
 		System.setIn(in);
 		Scanner scan = new Scanner(System.in);
@@ -86,6 +87,11 @@ class GameTest {
 	@Test
 	void testPrintEncryption() throws IOException {
 		//String input = "Not good answer";
+		Game game = new Game();
+		game.onStartup();
+		Cryptogram cryp = new LettersCryptogram("Testing");
+		Player player = new Player();
+		game.establishCrypt(cryp);
 		PrintStream standardout = System.out;
 		ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outputStreamCaptor));
@@ -96,9 +102,13 @@ class GameTest {
 		System.setOut(standardout);
 	}
 	
-	/* The next 3 tests can only be run 1 at a time because they all use a scanner*/
+	/* The next 4 tests can only be run 1 at a time because they all use a scanner*/
 	@Test
 	void testguess() {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("Testing");
+		Player player = new Player();
+		game.establishCrypt(cryp);
 		String guess = "t";//make sure this is what you put in the scanner when asked
 		//the value entered should be the first letter displayed in terminal
 		System.out.println(cryp.getEncrypted());
@@ -109,6 +119,10 @@ class GameTest {
 	
 	@Test
 	void testErrorMessage() {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("Testing");
+		Player player = new Player();
+		game.establishCrypt(cryp);
 		game.guesses.add("a");
 		game.values.add(game.crypt.get(0));
 		game.valuePlaces.add(0);
@@ -118,7 +132,11 @@ class GameTest {
 	}
 	
 	@Test
-	void testAlreadyMapped() {
+	void testAlreadyMapped() throws IOException {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("Testing");
+		Player player = new Player();
+		game.establishCrypt(cryp);
 		String guess = "t";//make sure this is what you put in the scanner when asked
 		//the value entered should be the first letter displayed in terminal
 		game.values.add(game.crypt.get(0));
@@ -132,6 +150,10 @@ class GameTest {
 	
 	@Test
 	void testNotComplete() {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("Testing");
+		Player player = new Player();
+		game.establishCrypt(cryp);
 		game.mapped = 6;
 		String guess = "g";
 		game.values.add(game.crypt.get(0));
@@ -161,4 +183,38 @@ class GameTest {
 		assertTrue(player.getSolved() == 0);//checks that solved wasn't incremented
 		
 	}
+	
+	@Test
+	public void testLetterWithoutGuess() {
+	 Game game = new Game();
+	 
+	 Cryptogram cryp = new LettersCryptogram("test");
+	 game.establishCrypt(cryp);
+	 ArrayList<String> crypt = cryp.getEncryptedArrayList();
+	 System.out.println(cryp.getEncrypted());
+	 
+	 	
+	 String letter = crypt.get(0);
+	 int guessedAt = 0;	
+     
+	 assertEquals(letter,crypt.get(guessedAt) );
+	 game.undoLetter();
+	 
+	}
+	
+	@Test
+	public void testLetterWithGuess() {
+		Game game = new Game();
+		Cryptogram cryp = new Cryptogram("test", "abca");
+		game.establishCrypt(cryp);
+		//this simulates a guess
+		game.values.add(0, "a");
+		game.valuePlaces.add(0);
+		game.crypt.remove(0);
+		game.crypt.add(0, "t");
+		//type "a" here
+		game.undoLetter();
+		assertEquals(game.crypt.get(0), "a");
+	}
+
 }

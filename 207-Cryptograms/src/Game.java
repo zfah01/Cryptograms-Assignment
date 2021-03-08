@@ -4,7 +4,7 @@ import java.io.*;
 public class Game {
 	public ArrayList<String> guesses = new ArrayList<String>();//array with letters guessed
 	public ArrayList<String> crypt;//array with cryptogram and guesses
-	public ArrayList<String> crypt2 = Cryptogram.getEncryptedArrayListStatic();//hold unchanged encrypted cryptogram
+	public ArrayList<String> crypt2;//hold unchanged encrypted cryptogram
 	public ArrayList<String> values = new ArrayList<String>();//holds the values the guess replaces onlywhen replaced
 	public ArrayList<Integer> valuePlaces = new ArrayList<Integer>();//keeps track of where the values were before being replaced
 	public ArrayList<String> answer = Cryptogram.getPhraseArrayListStatic();//will be changed to hold answer
@@ -178,7 +178,7 @@ public class Game {
 			}
 
 		}
-		myObj.close();
+		//myObj.close();
 	}
 	
 	public void undoLetter() {    
@@ -189,22 +189,26 @@ public class Game {
 		Scanner myObj = new Scanner(System.in);
 		System.out.println("Please enter a letter from the cryptogram to remove its mapped value");
 		String letter = myObj.nextLine();//this is the letter that has a mapped value
-		
+		boolean guessed = false;
 		// finding the position of the guessed letter
-		for(int i = 0; i < values.size();i++) {
+		for(int i = 0; i < values.size(); i++) {
 			if(values.get(i).equals(letter)) {
 				guessedAt = i; 
+				guessed = true;
+			}
 				// if not found prints error message
-			}else
-				System.out.println("This letter has not been mapped!"); 
+		}
+		if(!guessed) {
+			System.out.println("Not been guessed");
+			return;
 		}
 		
 		
-            // getting the mapped letter of the value
+            // updating guessedAt to the position that the letter has been guessed
 			guessedAt = valuePlaces.get(guessedAt);
 			
 		
-		//check if guess is equal to crypt letter
+		//checking if crypt letter has been guessed
 		for(int i = 0; i < crypt.size();i++) {
 			if(crypt.get(i).equals(crypt.get(guessedAt))){
 				
@@ -212,7 +216,8 @@ public class Game {
 				System.out.println("The mapped letter has been cleared");
 			}
 		}
-		myObj.close();
+		//myObj.close();
 	}
+
 
 }
