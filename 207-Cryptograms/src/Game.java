@@ -2,11 +2,11 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.io.*;
 public class Game {
-	public ArrayList<String> guesses = new ArrayList<String>();//array with letters guessed
+	public ArrayList<String> guesses = new ArrayList<>();//array with letters guessed
 	public ArrayList<String> crypt;//array with cryptogram and guesses
 	public ArrayList<String> crypt2;//hold unchanged encrypted cryptogram
-	public ArrayList<String> values = new ArrayList<String>();//holds the values the guess replaces onlywhen replaced
-	public ArrayList<Integer> valuePlaces = new ArrayList<Integer>();//keeps track of where the values were before being replaced
+	public ArrayList<String> values = new ArrayList<>();//holds the values the guess replaces onlywhen replaced
+	public ArrayList<Integer> valuePlaces = new ArrayList<>();//keeps track of where the values were before being replaced
 	public ArrayList<String> answer = Cryptogram.getPhraseArrayListStatic();//will be changed to hold answer
 	private Cryptogram cryptogram; //only used in the decide cryptogram function to avoid an error
 	private ArrayList<String> phrases = new ArrayList<>();
@@ -56,18 +56,18 @@ public class Game {
 	}
 	
 	public Cryptogram decideCryptogram(Scanner scan) {
-		boolean decided = false;
-		while(!decided) {
-			System.out.println("Would you like a numbers or letters cryptogram");
-			String type = scan.next();
-			if (type.toLowerCase().equals("letters")) {
+
+		while(true) {
+			System.out.println("Would you like a [numbers] or [letters] cryptogram: ");
+			String type = scan.nextLine().trim();
+			if (type.equalsIgnoreCase("letters")) {
 				cryptogram = createLetters();
-				decided = true;
-			} else if(type.toLowerCase().equals("numbers")) {
+				break;
+			} else if(type.equalsIgnoreCase("numbers")) {
 				cryptogram = createNumbers();
-				decided = true;
+				break;
 			} else {
-				System.out.println("Sorry that doesn't appear to be an option, would you like numbers or letters?");
+				System.out.println("Sorry that doesn't appear to be an option, would you like [numbers] or [letters]? ");
 			}
 		}
 		establishCrypt(cryptogram);
@@ -75,7 +75,7 @@ public class Game {
 	}
 	
 	public void printEncryption(Cryptogram crypto) {
-		String alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z"; //alphabet better cylces through the letters
+		String alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z".toUpperCase(); //alphabet better cycles through the letters
 		int[] frequencies = crypto.getFrequency();
 		System.out.println(crypto.getEncrypted());
 		System.out.println("Frequencies");
@@ -83,7 +83,7 @@ public class Game {
 		for (int i = 0; i < 26; i++) {
 			System.out.print(frequencies[i] + " ");
 		}
-		System.out.println(""); //extra line to break things up
+		System.out.println(); //extra line to break things up
 	}
 	
 	public void enterLetter(Cryptogram crypto, Player player) {
@@ -91,17 +91,17 @@ public class Game {
 		boolean correct = false;//checks if whole cryptogram is correct
 		Scanner myObj = new Scanner(System.in);
 		System.out.println("Please enter your guess: ");
-		String guess = myObj.nextLine();//this is the guess
-		if((guesses.isEmpty()==false)&&(guesses.contains(guess))){//checks if letter has been guessed before
+		String guess = myObj.nextLine().trim().toUpperCase();  //this is the guess
+		if(!guesses.isEmpty() && guesses.contains(guess)){  //checks if letter has been guessed before
 			guessed = true;
 		}
-		if(guessed == true) {
+		if(guessed) {
 			System.out.println("You have already guessed this letter. Please try again.");//error message if letter has been guessed
 			checkPrint = true;
 		}else {
 			guesses.add(guess);//guess has been added to array of guesses
 			System.out.println("Please enter the value to replace your guess with: ");
-			String value = myObj.nextLine();// get value to replace with guess
+			String value = myObj.nextLine().trim().toUpperCase();// get value to replace with guess
 			//find value in cryptogram array crypt
 			boolean valueThere = false;
 			int replaceAt = 0;
@@ -114,9 +114,9 @@ public class Game {
 					guessed = false;
 				
 			}
-			if(guessed == true) {//what happens if value has been guessed before
+			if(guessed) {//what happens if value has been guessed before
 				System.out.println("You have already replaced this value. Do you want to overwrite this? y/n");
-				String yesno = myObj.nextLine();
+				String yesno = myObj.nextLine().trim();
 				if(yesno.equals("n"))//if you want to cancel your guess
 					return;//kill the method
 			}
@@ -127,11 +127,11 @@ public class Game {
 					replaceAt = i;//need a value where the value definitely has been
 				}
 			}
-			if((valueThere == false)&&(guessed == false)) {
+			if (!valueThere && !guessed) {
 				System.out.println("ERROR: value selected not in cryptogram");
 				return;
 			}
-			if(guessed ==false)	{//what happens if this is the first time the value is being mapped
+			if (!guessed)	{//what happens if this is the first time the value is being mapped
 				values.add(value);
 				valuePlaces.add(replaceAt);//need to remember where the previous value was
 				for(int i = 0; i<crypt2.size();i++) {
@@ -169,7 +169,7 @@ public class Game {
 						break;
 					}
 				}
-				if(correct == false) {
+				if(!correct) {
 				System.out.println("User has failed cryptogram :(");
 				}else {
 					System.out.println("User has successfully completed cryptogram!!");
