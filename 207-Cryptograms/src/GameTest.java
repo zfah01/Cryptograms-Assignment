@@ -51,7 +51,7 @@ class GameTest {
 			assertEquals("Sorry that doesn't appear to be an option, would you like numbers or letters?", outputStreamCaptor.toString().trim());
 			System.setOut(standardout);
 			
-		} */
+		} 
 	@Test
 	void testDecideCryptogramforLetter() throws IOException {
 		Game game = new Game();
@@ -66,6 +66,7 @@ class GameTest {
 		char firstLetter = crypto.getEncrypted().charAt(0);
 		assertFalse(Character.isDigit(firstLetter));
 	}
+	
 	
 	//theres a lot of distincations between so better keep them seperate
 	@Test
@@ -102,7 +103,7 @@ class GameTest {
 		System.setOut(standardout);
 	}
 	
-	/* The next 4 tests can only be run 1 at a time because they all use a scanner*/
+	//The next 4 tests can only be run 1 at a time because they all use a scanner
 	@Test
 	void testguess() {
 		Game game = new Game();
@@ -148,14 +149,17 @@ class GameTest {
 		//assertEquals(value, values.get(0));
 	}
 	
+	*/
 	@Test
 	void testNotComplete() {
 		Game game = new Game();
-		Cryptogram cryp = new LettersCryptogram("Testing");
+		Cryptogram cryp = new LettersCryptogram("testing");
 		Player player = new Player();
 		game.establishCrypt(cryp);
 		game.mapped = 6;
 		String guess = "g";
+		System.out.println(game.answer);
+		System.out.println("boop");
 		game.values.add(game.crypt.get(0));
 		game.values.add(game.crypt.get(1));
 		game.values.add(game.crypt.get(2));
@@ -167,22 +171,63 @@ class GameTest {
 		game.valuePlaces.add(4);
 		game.valuePlaces.add(5);
 		game.guesses.add("t");
-		game.guesses.add("a");
+		game.guesses.add("e");
 		game.guesses.add("s");
 		game.guesses.add("i");
 		game.guesses.add("n");
 		game.crypt.set(0, "t");
-		game.crypt.set(1, "a");
+		game.crypt.set(1, "e");
 		game.crypt.set(2, "s");
 		game.crypt.set(3, "t");
 		game.crypt.set(4, "i");
 		game.crypt.set(5, "n");
 		System.out.println(cryp.getEncrypted());
 		System.out.println(game.crypt.size());
+		System.out.println(game.crypt2);
 		game.enterLetter(cryp, player);
 		assertTrue(player.getSolved() == 0);//checks that solved wasn't incremented
 		
 	}
+	
+	@Test
+	void testComplete() {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("testing");
+		Player player = new Player();
+		game.establishCrypt(cryp);
+		game.mapped = 6;
+		String guess = "g";
+		System.out.println(game.answer);
+		System.out.println("boop");
+		game.values.add(game.crypt.get(0));
+		game.values.add(game.crypt.get(1));
+		game.values.add(game.crypt.get(2));
+		game.values.add(game.crypt.get(4));
+		game.values.add(game.crypt.get(5));
+		game.valuePlaces.add(0);
+		game.valuePlaces.add(1);
+		game.valuePlaces.add(2);
+		game.valuePlaces.add(4);
+		game.valuePlaces.add(5);
+		game.guesses.add("t");
+		game.guesses.add("e");
+		game.guesses.add("s");
+		game.guesses.add("i");
+		game.guesses.add("n");
+		game.crypt.set(0, "t");
+		game.crypt.set(1, "e");
+		game.crypt.set(2, "s");
+		game.crypt.set(3, "t");
+		game.crypt.set(4, "i");
+		game.crypt.set(5, "n");
+		System.out.println(cryp.getEncrypted());
+		System.out.println(game.crypt.size());
+		System.out.println(game.crypt2);
+		game.enterLetter(cryp, player);
+		assertTrue(player.getSolved() == 0);//checks that solved wasn't incremented
+		
+	}
+	/*
 	
 	@Test
 	public void testLetterWithoutGuess() {
@@ -216,5 +261,5 @@ class GameTest {
 		game.undoLetter();
 		assertEquals(game.crypt.get(0), "a");
 	}
-
+*/
 }

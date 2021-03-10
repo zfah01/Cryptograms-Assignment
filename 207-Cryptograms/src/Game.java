@@ -7,7 +7,7 @@ public class Game {
 	public ArrayList<String> crypt2;//hold unchanged encrypted cryptogram
 	public ArrayList<String> values = new ArrayList<String>();//holds the values the guess replaces onlywhen replaced
 	public ArrayList<Integer> valuePlaces = new ArrayList<Integer>();//keeps track of where the values were before being replaced
-	public ArrayList<String> answer = Cryptogram.getPhraseArrayListStatic();//will be changed to hold answer
+	public ArrayList<String> answer;//will be changed to hold answer
 	private Cryptogram cryptogram; //only used in the decide cryptogram function to avoid an error
 	private ArrayList<String> phrases = new ArrayList<>();
 	public boolean checkPrint = false;//used for testing purposes
@@ -42,6 +42,7 @@ public class Game {
 	public void establishCrypt(Cryptogram crypto) {
 		crypt = crypto.getEncryptedArrayList();
 		crypt2 = crypto.getEncryptedArrayList();
+		answer = crypto.getPhraseArrayListStatic();
 	}
 	//helper method to create the cryptogram
 	private Cryptogram createLetters() {
@@ -161,7 +162,7 @@ public class Game {
 				player.addTotalGuesses();
 			}
 			if(mapped == (crypt2.size()/2)) {
-				for(int i = 0; i <answer.size();i++) {
+				for(int i = 0; i <(answer.size())/2;i++) {
 					if(crypt.get(i).equals(answer.get(i))) {
 						correct = true;
 					}else {
