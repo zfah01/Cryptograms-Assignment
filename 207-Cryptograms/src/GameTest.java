@@ -224,7 +224,7 @@ class GameTest {
 		System.out.println(game.crypt.size());
 		System.out.println(game.crypt2);
 		game.enterLetter(cryp, player);
-		assertTrue(player.getSolved() == 0);//checks that solved wasn't incremented
+		assertTrue(player.getSolved() == 1);//checks that solved wasn't incremented
 		
 	}
 	/*
