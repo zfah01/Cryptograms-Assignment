@@ -9,22 +9,48 @@ public class Player {
 	private int totalGuesses;
 	private int correctGuesses;
 	private int solved;
-	public String username;
-	private int accuracy;
+	private String username;
+	private double accuracy;
 	private int cryptogramsPlayed;
 	
 	public Player() {
 		totalGuesses = 0;
 		correctGuesses = 0;
 		solved = 0;
-		accuracy = 0;
+		accuracy = 0.0;
 		cryptogramsPlayed = 0;
 		username = "Theo";
+	}
+	
+	public int getCorrectGuesses() {
+		return correctGuesses;
+	}
+	
+	public int getTotalGuesses() {
+		return totalGuesses;
+	}
+	
+	public double getAccuracy() {
+		return accuracy;
+	}
+	
+	public int getCryptogramsPlayed() {
+		return cryptogramsPlayed;
+	}
+	
+	public String getUsername() {
+		return username;
 	}
 	
 	public int getSolved() {
 		return solved;
 	}
+	
+	public void updateAccuracy() {
+		if(totalGuesses >0)
+			accuracy = correctGuesses/totalGuesses;
+	}
+	
 	public void incrementCryptogramsPlayed() {
 		cryptogramsPlayed++;
 	}

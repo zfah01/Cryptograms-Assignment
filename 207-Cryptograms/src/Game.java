@@ -153,6 +153,7 @@ public class Game {
 					player.addCorrectGuesses();
 				}
 				player.addTotalGuesses();
+				player.updateAccuracy();
 			}else {//what happens if this not the first time the value is being mapped
 				for(int i = 0; i<crypt2.size();i++) {
 					if(crypt2.get(i).equals(crypt.get(valuePlaces.get(guessedAt)))) {//this compares what is in crypt to 
@@ -165,6 +166,7 @@ public class Game {
 					player.addCorrectGuesses();
 				}
 				player.addTotalGuesses();
+				player.updateAccuracy();
 			}
 			if(mapped == (crypt2.size()/2)) {
 				player.incrementCryptogramsPlayed();
