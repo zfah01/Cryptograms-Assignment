@@ -15,10 +15,10 @@ public class LettersCryptogram extends Cryptogram{
 		int offset = ThreadLocalRandom.current().nextInt(1, 26 + 1);
 		StringBuilder result = new StringBuilder();
 		for (char character : phrase.toCharArray()) {
-		    if (character != ' ') {
-		        int originalAlphabetPosition = character - 'a';
+		    if (Character.isLetter(character)) {
+		        int originalAlphabetPosition = character - 'A';
 		        int newAlphabetPosition = (originalAlphabetPosition + offset) % 26;
-		        char newCharacter = (char) ('a' + newAlphabetPosition);
+		        char newCharacter = (char) ('A' + newAlphabetPosition);
 		        result.append(newCharacter);
 		    } else {
 		        result.append(character);
