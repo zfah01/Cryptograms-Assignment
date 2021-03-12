@@ -55,7 +55,7 @@ public class Game {
 		return crypto;
 	}
 	
-	public Cryptogram decideCryptogram(Scanner scan) {
+	public void decideCryptogram(Scanner scan) {
 		boolean decided = false;
 		while(!decided) {
 			System.out.println("Would you like a numbers or letters cryptogram");
@@ -71,13 +71,12 @@ public class Game {
 			}
 		}
 		establishCrypt(cryptogram);
-		return cryptogram;
 	}
 	
-	public void printEncryption(Cryptogram crypto) {
+	public void printEncryption() {
 		String alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z"; //alphabet better cylces through the letters
-		int[] frequencies = crypto.getFrequency();
-		System.out.println(crypto.getEncrypted());
+		int[] frequencies = cryptogram.getFrequency();
+		System.out.println(cryptogram.getEncrypted());
 		System.out.println("Frequencies");
 		System.out.println(alphabet);
 		for (int i = 0; i < 26; i++) {
@@ -86,7 +85,7 @@ public class Game {
 		System.out.println(""); //extra line to break things up
 	}
 	
-	public void enterLetter(Cryptogram crypto, Player player) {
+	public void enterLetter(Player player) {
 		boolean guessed = false;//checks if guess has been made or value has been replaced
 		boolean correct = false;//checks if whole cryptogram is correct
 		Scanner myObj = new Scanner(System.in);
@@ -143,7 +142,7 @@ public class Game {
 				guesses.add(guess);
 				mapped++;
 				//check if guess was correct?
-				if(crypto.getLetter(value).equals(guess)) {
+				if(cryptogram.getLetter(value).equals(guess)) {
 					player.addCorrectGuesses();
 				}
 				player.addTotalGuesses();
@@ -155,7 +154,7 @@ public class Game {
 					}
 				}
 				guesses.add(guess);//add guess
-				if(crypto.getLetter(value).equals(guess)) {
+				if(cryptogram.getLetter(value).equals(guess)) {
 					player.addCorrectGuesses();
 				}
 				player.addTotalGuesses();
@@ -217,6 +216,16 @@ public class Game {
 			}
 		}
 		//myObj.close();
+	}
+	
+	public void giveUp() {
+		System.out.println("I'm sorry you've given up");
+		System.out.println("The answer to your cryptogram is: " + cryptogram.getPhrase());
+	}
+	
+	//this function is mostly used for testing purposes
+	public Cryptogram getCryptogram() {
+		return cryptogram;
 	}
 
 
