@@ -13,10 +13,11 @@ public class Driver {
 		}
 		Scanner myScan = new Scanner(System.in);
 		System.out.println("Welcome to Cryptogram!!");
-		Player player = new Player();
-		game.decideCryptogram(myScan); //this had to be a seperate method otherwise it couldn't find it from if statements
-		game.printEncryption();
-		String responce;
+		Player player = new Player(0, 0, 0, 0, 0, null);
+		Cryptogram crypto = game.decideCryptogram(myScan); //this had to be a seperate method otherwise it couldn't find it from if statements
+		game.printEncryption(crypto);
+		String response;
+		label:
 		while (true) {
 			System.out.println("What would you like to do? enter the number");
 			System.out.println("(1) make guess    (2) remove guess (3) give up (4) leave");
