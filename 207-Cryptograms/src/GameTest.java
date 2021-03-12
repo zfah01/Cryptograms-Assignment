@@ -154,7 +154,7 @@ class GameTest {
 	void testNotComplete() {
 		Game game = new Game();
 		Cryptogram cryp = new LettersCryptogram("testing");
-		Player player = new Player();
+		Player player = new Player(0, 0, 0, 0, 0, null);
 		game.establishCrypt(cryp);
 		game.mapped = 6;
 		String guess = "g";
@@ -194,7 +194,7 @@ class GameTest {
 	void testComplete() {
 		Game game = new Game();
 		Cryptogram cryp = new LettersCryptogram("testing");
-		Player player = new Player();
+		Player player = new Player(0, 0, 0, 0, 0, null);
 		game.establishCrypt(cryp);
 		game.mapped = 6;
 		String guess = "g";

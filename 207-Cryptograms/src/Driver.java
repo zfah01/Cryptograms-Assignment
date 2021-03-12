@@ -13,7 +13,7 @@ public class Driver {
 		}
 		Scanner myScan = new Scanner(System.in);
 		System.out.println("Welcome to Cryptogram!!");
-		Player player = new Player();
+		Player player = new Player(0, 0, 0, 0, 0, null);
 		Cryptogram crypto = game.decideCryptogram(myScan); //this had to be a seperate method otherwise it couldn't find it from if statements
 		game.printEncryption(crypto);
 		String responce;

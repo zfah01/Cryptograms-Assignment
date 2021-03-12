@@ -13,13 +13,13 @@ public class Player {
 	private double accuracy;
 	private int cryptogramsPlayed;
 	
-	public Player() {
-		totalGuesses = 0;
-		correctGuesses = 0;
-		solved = 0;
-		accuracy = 0.0;
-		cryptogramsPlayed = 0;
-		username = "Theo";
+	public Player(int totalGuesses, int correctGuesses,int solved, double accuracy, int cryptogramsPlayed, String username) {
+		this.totalGuesses = totalGuesses;
+		this.correctGuesses = correctGuesses;
+		this.solved = solved;
+		this.accuracy = accuracy;
+		this.cryptogramsPlayed = cryptogramsPlayed;
+		this.username = username;
 	}
 	
 	public int getCorrectGuesses() {
