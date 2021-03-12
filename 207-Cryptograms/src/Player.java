@@ -40,10 +40,10 @@ public class Player {
 	public void addSolved() {
 		solved++;
 	}
-	public void savePlayer() {
-		File file = new File("PlayerFile.txt");
+	public void savePlayer(File playerFile) {
+		
 		try {
-			PrintWriter myWriter = new PrintWriter(file);//this is the file that holds all the player details
+			PrintWriter myWriter = new PrintWriter(playerFile);//this is the file that holds all the player details
 			myWriter.println(username);
 			myWriter.println(totalGuesses);
 			myWriter.println(correctGuesses);

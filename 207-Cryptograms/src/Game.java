@@ -12,9 +12,14 @@ public class Game {
 	private ArrayList<String> phrases = new ArrayList<>();
 	public boolean checkPrint = false;//used for testing purposes
 	public int mapped = 0;//keeps track of how many letters user has mapped a value to
+	private File playerFile;
 	public Game() {
+		File playerFile = new File("PlayerFile.txt");
 	}
 	
+	public File getPlayerFile() {
+		return playerFile;
+	}
 	
 	public void onStartup() throws IOException {
 		File file = new File("CryptogramSentences.txt");
