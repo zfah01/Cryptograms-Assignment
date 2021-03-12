@@ -62,7 +62,8 @@ class GameTest {
 		ByteArrayInputStream in = new ByteArrayInputStream("letters".getBytes());
 		System.setIn(in);
 		Scanner scan = new Scanner(System.in);
-		Cryptogram crypto = game.decideCryptogram(scan);
+		game.decideCryptogram(scan);
+		Cryptogram crypto = game.getCryptogram();
 		char firstLetter = crypto.getEncrypted().charAt(0);
 		assertFalse(Character.isDigit(firstLetter));
 	}
@@ -79,7 +80,8 @@ class GameTest {
 		ByteArrayInputStream in = new ByteArrayInputStream("numbers".getBytes());
 		System.setIn(in);
 		Scanner scan = new Scanner(System.in);
-		Cryptogram crypto = game.decideCryptogram(scan);
+		game.decideCryptogram(scan);
+		Cryptogram crypto = game.getCryptogram();
 		char firstLetter = crypto.getEncrypted().charAt(0);
 		assertTrue(Character.isDigit(firstLetter));
 	}
@@ -90,14 +92,14 @@ class GameTest {
 		//String input = "Not good answer";
 		Game game = new Game();
 		game.onStartup();
-		Cryptogram cryp = new LettersCryptogram("Testing");
+		Cryptogram crypto = new Cryptogram("test", "abca");
 		Player player = new Player();
-		game.establishCrypt(cryp);
+		game.establishCrypt(crypto);
 		PrintStream standardout = System.out;
 		ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outputStreamCaptor));
-		Cryptogram crypto = new Cryptogram("test", "abca");
-		game.printEncryption(crypto);
+		
+		game.printEncryption();
 		String expected = crypto.getEncrypted() + "\nFrequencies\na b c d e f g h i j k l m n o p q r s t u v w x y z\n0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0 0 0 0 0 0";
 		assertEquals(expected, outputStreamCaptor.toString().trim());
 		System.setOut(standardout);
@@ -113,7 +115,7 @@ class GameTest {
 		String guess = "t";//make sure this is what you put in the scanner when asked
 		//the value entered should be the first letter displayed in terminal
 		System.out.println(cryp.getEncrypted());
-		game.enterLetter(cryp, player);
+		game.enterLetter(player);
 		assertEquals(guess, game.crypt.get(0));//check that guess has replaced where value was
 		
 	}
@@ -128,7 +130,7 @@ class GameTest {
 		game.values.add(game.crypt.get(0));
 		game.valuePlaces.add(0);
 		System.out.println(cryp.getEncrypted());
-		game.enterLetter(cryp, player);//input a
+		game.enterLetter(player);//input a
 		assertTrue(game.checkPrint);
 	}
 	
@@ -143,7 +145,7 @@ class GameTest {
 		game.values.add(game.crypt.get(0));
 		game.valuePlaces.add(0);
 		System.out.println(cryp.getEncrypted());
-		game.enterLetter(cryp, player);
+		game.enterLetter(player);
 		//enter y for test to pass
 		assertEquals(guess, game.crypt.get(0));//check that guess has replaced where value was
 		//assertEquals(value, values.get(0));
@@ -183,8 +185,7 @@ class GameTest {
 		game.crypt.set(5, "n");
 		System.out.println(cryp.getEncrypted());
 		System.out.println(game.crypt.size());
-		System.out.println(game.crypt2);
-		game.enterLetter(cryp, player);
+		game.enterLetter(player);
 		assertTrue(player.getSolved() == 0);//checks that solved wasn't incremented
 		
 	}
