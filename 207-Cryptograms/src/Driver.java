@@ -26,6 +26,7 @@ public class Driver {
 			} else if (responce.equals("2")) {
 				game.undoLetter(); //this also exists in another branch
 			} else if (responce.equals("3")) {
+				player.savePlayer();
 				break;
 			} else {
 				System.out.println("I'm sorry that doesn't seem to be a valid input, please try again");

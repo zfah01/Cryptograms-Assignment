@@ -162,6 +162,7 @@ public class Game {
 				player.addTotalGuesses();
 			}
 			if(mapped == (crypt2.size()/2)) {
+				player.incrementCryptogramsPlayed();
 				for(int i = 0; i <(answer.size())/2;i++) {
 					if(crypt.get(i).equals(answer.get(i))) {
 						correct = true;
