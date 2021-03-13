@@ -62,7 +62,7 @@ public class Players {
     public void loadPlayers() {
     	
 		File file = new File(playerFile);
-		Player p = new Player(0, 0, 0, 0, 0, null);
+		Player p = new Player(null, 0, 0, 0, 0, 0);
 		try (Scanner scanner = new Scanner(file)) {
 
 			while (scanner.hasNextLine()) {
@@ -72,7 +72,7 @@ public class Players {
 				int totalGuesses = scanner.nextInt();
 				int cryptogramsPlayed = scanner.nextInt();
 				int solved = scanner.nextInt();
-				Player player = new Player(totalGuesses, correctGuesses,solved, accuracy,cryptogramsPlayed, username);
+				Player player = new Player(username, accuracy, correctGuesses,totalGuesses, cryptogramsPlayed,solved );
 				allPlayers.add(player);
 			}
 			scanner.close();
@@ -80,6 +80,7 @@ public class Players {
     
 		catch (FileNotFoundException e) {
             System.out.println("File Not Found: This player does not exist");
+            
             allPlayers.add(p);
 		    System.out.println("New Player has been created : "+ p.getUsername());
         }

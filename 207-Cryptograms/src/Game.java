@@ -18,7 +18,7 @@ public class Game {
 	Players playerGameMapping;
 	
 	public Game() {
-
+        
 		File playerFile = new File("PlayerFile.txt");
 		playerGameMapping.loadPlayers();
 	}
