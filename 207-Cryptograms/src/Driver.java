@@ -21,7 +21,7 @@ public class Driver {
 		String responce;
 		while (true) {
 			System.out.println("What would you like to do? enter the number");
-			System.out.println("(1) make guess    (2) remove guess (3) give up (4) leave");
+			System.out.println("(1) make guess    (2) remove guess (3) give up (4) leave (5) see my stats");
 			responce = myScan.nextLine();
 			if(responce.equals("1")) {
 				//game.enterLetter(player); //this exists in another branch
@@ -34,7 +34,9 @@ public class Driver {
 				game.printEncryption();
 			} else if (responce.equals("4")) {
 				break;
-			} else {
+			} else if(responce.equals("5")){
+				game.printPlayerStats();
+			}else {
 				System.out.println("I'm sorry that doesn't seem to be a valid input, please try again");
 			}
 		}
