@@ -17,10 +17,10 @@ public class Players {
 	
 	public Player findPlayer(String username) {
 		Player seekedPlayer = null;
-		 for(int i = 0; i < allPlayers.size(); i++)
+		 for(Player player : allPlayers)
 	        {
-	            if(allPlayers.get(i).getUsername().equals(username)) {
-	                seekedPlayer = allPlayers.get(i);
+	            if(player.getUsername().equals(username)) {
+	                seekedPlayer = player;
 	                break;
 	            }
 	        }
@@ -72,7 +72,7 @@ public class Players {
 				int totalGuesses = scanner.nextInt();
 				int cryptogramsPlayed = scanner.nextInt();
 				int solved = scanner.nextInt();
-				Player player = new Player(username, accuracy, correctGuesses,totalGuesses, cryptogramsPlayed,solved );
+				Player player = new Player(totalGuesses,  correctGuesses,solved, accuracy,  cryptogramsPlayed,  username);
 				allPlayers.add(player);
 			}
 			scanner.close();
