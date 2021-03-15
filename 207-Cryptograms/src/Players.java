@@ -62,7 +62,6 @@ public class Players {
     public void loadPlayers() {
     	
 		File file = new File(playerFile);
-		Player p = new Player(null, 0, 0, 0, 0, 0);
 		try (Scanner scanner = new Scanner(file)) {
 
 			while (scanner.hasNextLine()) {
@@ -77,19 +76,24 @@ public class Players {
 			}
 			scanner.close();
 		} 
-    
+		
+        catch (NumberFormatException e) {
+			System.out.println("Error: Something went wrong while loading player details");
+			e.printStackTrace();
+		}
 		catch (FileNotFoundException e) {
             System.out.println("File Not Found: This player does not exist");
-            
+            e.printStackTrace();
+           Player p = new Player(null, 0, 0, 0, 0, 0);
             allPlayers.add(p);
 		    System.out.println("New Player has been created : "+ p.getUsername());
         }
+		 
 		
-		
-	    catch (IOException e) {
-			System.out.println("Error: Something went wrong while loading player details");
-		}
+	    
 		
     }
+    
+   
 }
 
