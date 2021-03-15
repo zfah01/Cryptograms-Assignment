@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Players {
-	private ArrayList <Player> allPlayers;
+	private ArrayList <Player> allPlayers = new ArrayList<>() ;
 	private  String playerFile = "playerFile.txt";
 	
 	public void addPlayer(Player p) {
@@ -63,8 +63,8 @@ public class Players {
     	
 		File file = new File(playerFile);
 		try (Scanner scanner = new Scanner(file)) {
-
-			while (scanner.hasNextLine()) {
+       
+			while (scanner.hasNext()) {
 				String username = scanner.next();
 				double accuracy = scanner.nextDouble();
 				int correctGuesses = scanner.nextInt();
@@ -90,6 +90,8 @@ public class Players {
 	    
 		
     }
+    
+
     
    
 }
