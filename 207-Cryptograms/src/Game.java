@@ -14,21 +14,26 @@ public class Game {
 	public int mapped = 0;//keeps track of how many letters user has mapped a value to
 	private Scanner scan = new Scanner(System.in);
 	private File playerFile;
-	Player currentPlayer;
-	Players playerGameMapping;
+	private Player currentPlayer;
+	private Players playerGameMapping = new Players();
 	
 	public Game() {
-        
-		File playerFile = new File("PlayerFile.txt");
-		playerGameMapping.loadPlayers();
+		
+        playerGameMapping.loadPlayers(); 
+		File playerFile = new File("playerFile.txt");
+		
 	}
 	
 	public void loadPlayer()
-  {	
+	
+  {	    
 		String username = scan.next();
 		currentPlayer = playerGameMapping.findPlayer(username);
-		
-		System.out.println("Player : " + currentPlayer.getUsername() + " has been loaded.");
+		if (currentPlayer == null) {
+			System.out.println("New Player has been created: " + username);
+			currentPlayer = new Player(username,0,0,0,0,0);
+			playerGameMapping.addPlayer(currentPlayer);
+		}
 	}
 	
 	
