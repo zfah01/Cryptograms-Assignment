@@ -19,7 +19,7 @@ public class Game {
 	
 	public Game() {
 		
-        playerGameMapping.loadPlayers(); 
+       playerGameMapping.loadPlayers(); 
 		File playerFile = new File("playerFile.txt");
 		
 	}
@@ -31,11 +31,21 @@ public class Game {
 		currentPlayer = playerGameMapping.findPlayer(username);
 		if (currentPlayer == null) {
 			System.out.println("New Player has been created: " + username);
-			currentPlayer = new Player(username,0,0,0,0,0);
+			currentPlayer = new Player(0,0,0,0,0,username);
 			playerGameMapping.addPlayer(currentPlayer);
 		}
 	}
 	
+	public void printPlayerStats() {
+		System.out.println("Stats for " + currentPlayer.getUsername());
+		System.out.println("Accuracy of guesses: " + currentPlayer.getAccuracy());
+		System.out.println("Total guesses made: " + currentPlayer.getTotalGuesses());
+		System.out.println("Correct guesses: " + currentPlayer.getCorrectGuesses());
+		System.out.println("Cryptograms played: " + currentPlayer.getCryptogramsPlayed());
+		System.out.println("Cryptograms completed: " + currentPlayer.getSolved());
+		
+		
+	}
 	
 	public File getPlayerFile() {
 		return playerFile;
