@@ -17,10 +17,11 @@ public class Players {
 	
 	public Player findPlayer(String username) {
 		Player seekedPlayer = null;
-		 for(Player player : allPlayers)
+		 for(int i = 0; i < allPlayers.size(); i++)
 	        {
-	            if(player.getUsername().equals(username)) {
-	                seekedPlayer = player;
+	            if(allPlayers.get(i).getUsername().equals(username)) {
+	                seekedPlayer = allPlayers.get(i);
+	                break;
 	            }
 	        }
 		return seekedPlayer;
