@@ -14,7 +14,7 @@ public class Player {
 	private int cryptogramsPlayed;
 
 	
-	public Player(String username, double accuracy, int correctGuesses,int totalGuesses, int cryptogramsPlayed,int solved ) {
+	public Player(int totalGuesses, int correctGuesses,int solved, double accuracy, int cryptogramsPlayed, String username ) {
 		this.totalGuesses = totalGuesses;
 		this.correctGuesses = correctGuesses;
 		this.solved = solved;
