@@ -79,12 +79,12 @@ public class Players {
 		
        
 		catch (FileNotFoundException e) {
-            System.out.println("File Not Found: This player does not exist");
+            System.out.println("File Not Found");
             e.printStackTrace();
         }
 		 
 		 catch (IOException e) {
-			System.out.println("Error: Something went wrong while loading player details");
+			System.out.println("Error: Player does not exist");
 			e.printStackTrace();
 		}
 	    
