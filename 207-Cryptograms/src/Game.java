@@ -19,7 +19,7 @@ public class Game {
 	
 	public Game() {
 		
-       playerGameMapping.loadPlayers(); 
+        playerGameMapping.loadPlayers(); 
 		File playerFile = new File("playerFile.txt");
 		
 	}
@@ -30,10 +30,12 @@ public class Game {
 		String username = scan.next();
 		currentPlayer = playerGameMapping.findPlayer(username);
 		if (currentPlayer == null) {
+			System.out.println("This player does not exist!");
 			System.out.println("New Player has been created: " + username);
 			currentPlayer = new Player(0,0,0,0,0,username);
 			playerGameMapping.addPlayer(currentPlayer);
 		}
+		
 	}
 	
 	public void printPlayerStats() {
