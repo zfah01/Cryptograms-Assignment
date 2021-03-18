@@ -84,10 +84,6 @@ public class Players {
             e.printStackTrace();
         }
 		 
-		 catch (IOException e) {
-			System.out.println("Error: Player does not exist");
-			e.printStackTrace();
-		}
 	    
 		
     }
