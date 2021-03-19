@@ -18,7 +18,7 @@ public class Driver {
 		String responce;
 		System.out.println("Please enter a username: ");
 		responce = myScan.nextLine();
-		Player player = new Player(0, 0, 0, 0, 0, responce);
+		Player player = new Player(0, 0, 0, 0, 0, "Theo");
 		while (true) {
 			System.out.println("What would you like to do? enter the number");
 			System.out.println("(1) make guess    (2) remove guess (3) give up (4) leave");
