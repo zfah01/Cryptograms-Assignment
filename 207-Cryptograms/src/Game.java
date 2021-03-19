@@ -20,6 +20,9 @@ public class Game {
 	public File getPlayerFile() {
 		return playerFile;
 	}
+	public void callSavePlayer(Player player) {
+		player.savePlayer(playerFile);
+	}
 	
 	public void onStartup() throws IOException {
 		File file = new File("CryptogramSentences.txt");

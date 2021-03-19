@@ -152,6 +152,7 @@ class GameTest {
 	}
 	
 	*/
+	/*
 	@Test
 	void testNotComplete() {
 		Game game = new Game();
@@ -229,7 +230,7 @@ class GameTest {
 		assertTrue(player.getSolved() == 1);//checks that solved wasn't incremented
 		
 	}
-	/*
+	
 	
 	@Test
 	public void testLetterWithoutGuess() {
@@ -264,4 +265,14 @@ class GameTest {
 		assertEquals(game.crypt.get(0), "a");
 	}
 */
+	@Test
+	public void testPrintFile() {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("testing");
+		Player player = new Player(0, 0, 0, 0, 0, "name");
+		game.establishCrypt(cryp);
+		assertThrows(IOException.class, () -> {
+			game.callSavePlayer(player);
+		  });
+	}
 }
