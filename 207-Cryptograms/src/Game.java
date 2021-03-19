@@ -14,14 +14,14 @@ public class Game {
 	public int mapped = 0;//keeps track of how many letters user has mapped a value to
 	private File playerFile;
 	public Game() {
-		File playerFile = new File("PlayerFile.txt");
+		//File playerFile = new File("PlayerFile.txt");
 	}
 	
 	public File getPlayerFile() {
 		return playerFile;
 	}
 	public void callSavePlayer(Player player) {
-		player.savePlayer(playerFile);
+		player.savePlayer();
 	}
 	
 	public void onStartup() throws IOException {

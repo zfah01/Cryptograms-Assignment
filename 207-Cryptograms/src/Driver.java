@@ -36,7 +36,9 @@ public class Driver {
 				System.out.print("Do you want to save your profile? y/n");
 				responce = myScan.nextLine();
 				if(responce.equals("y")){
-					game.callSavePlayer(player);
+					//game.callSavePlayer(player);
+					//player.savePlayer(game.getPlayerFile());
+					player.savePlayer();
 				}
 				break;
 			} else {
