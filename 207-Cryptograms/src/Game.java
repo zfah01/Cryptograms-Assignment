@@ -17,9 +17,7 @@ public class Game {
 		//File playerFile = new File("PlayerFile.txt");
 	}
 	
-	public File getPlayerFile() {
-		return playerFile;
-	}
+
 	public void callSavePlayer(Player player) {
 		player.savePlayer();
 	}

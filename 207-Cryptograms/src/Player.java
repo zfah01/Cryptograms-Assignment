@@ -12,6 +12,7 @@ public class Player {
 	private String username;
 	private double accuracy;
 	private int cryptogramsPlayed;
+	private File playerFile = new File("PlayerFile.txt");
 	
 	public Player(int totalGuesses, int correctGuesses,int solved, double accuracy, int cryptogramsPlayed, String username) {
 		this.totalGuesses = totalGuesses;
@@ -66,8 +67,12 @@ public class Player {
 	public void addSolved() {
 		solved++;
 	}
+	public File getPlayerFile() {
+		return playerFile;
+	}
+	
 	public void savePlayer() {
-		File playerFile = new File("PlayerFile.txt");
+		
 
 		try {
 			PrintWriter myWriter = new PrintWriter(playerFile);//this is the file that holds all the player details
