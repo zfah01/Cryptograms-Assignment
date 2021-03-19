@@ -24,7 +24,7 @@ public class Game {
 		
 	}
 	
-	public void loadPlayer()
+	public Player loadPlayer()
 	
   {	    
 		String username = scan.next();
@@ -35,6 +35,7 @@ public class Game {
 			currentPlayer = new Player(0,0,0,0,0,username);
 			playerGameMapping.addPlayer(currentPlayer);
 		}
+		return currentPlayer;
 		
 	}
 	
@@ -271,3 +272,4 @@ public class Game {
 
 
 }
+
