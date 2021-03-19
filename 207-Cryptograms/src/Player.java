@@ -67,7 +67,7 @@ public class Player {
 		solved++;
 	}
 	public void savePlayer(File playerFile) {
-		
+
 		try {
 			PrintWriter myWriter = new PrintWriter(playerFile);//this is the file that holds all the player details
 			myWriter.println(username);
