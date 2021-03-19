@@ -12,7 +12,6 @@ public class Game {
 	private ArrayList<String> phrases = new ArrayList<>();
 	public boolean checkPrint = false;//used for testing purposes
 	public int mapped = 0;//keeps track of how many letters user has mapped a value to
-	private Scanner scan = new Scanner(System.in);
 	private File playerFile;
 	private Player currentPlayer;
 	private Players playerGameMapping = new Players();
@@ -27,6 +26,7 @@ public class Game {
 	public Player loadPlayer()
 	
   {	    
+	    Scanner scan = new Scanner(System.in)
 		String username = scan.next();
 		currentPlayer = playerGameMapping.findPlayer(username);
 		if (currentPlayer == null) {
