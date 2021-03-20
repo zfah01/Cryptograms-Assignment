@@ -152,6 +152,7 @@ class GameTest {
 	}
 	
 	*/
+	/*
 	@Test
 	void testNotComplete() {
 		Game game = new Game();
@@ -229,7 +230,7 @@ class GameTest {
 		assertTrue(player.getSolved() == 1);//checks that solved wasn't incremented
 		
 	}
-	/*
+	
 	
 	@Test
 	public void testLetterWithoutGuess() {
@@ -263,5 +264,31 @@ class GameTest {
 		game.undoLetter();
 		assertEquals(game.crypt.get(0), "a");
 	}
-*/
+
+
+	*/
+	@Test
+	public void testFile() {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("testing");
+		Player player = new Player(0, 0, 0, 0, 0, "name");
+		game.establishCrypt(cryp);
+		game.callSavePlayer(player);
+		boolean fileExists = player.getPlayerFile().exists();
+		assertTrue(fileExists);
+	}
+	@Test
+	public void testFileWrites() throws FileNotFoundException {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("testing");
+		Player player = new Player(0, 0, 0, 0, 0, "name");
+		String saveUser;
+		game.establishCrypt(cryp);
+		game.callSavePlayer(player);
+		Scanner reading = new Scanner(player.getPlayerFile());
+		saveUser = reading.next();
+		assertEquals(saveUser, player.getUsername());
+		
+		
+	}
 }
