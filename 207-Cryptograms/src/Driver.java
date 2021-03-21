@@ -13,6 +13,9 @@ public class Driver {
 		}
 		Scanner myScan = new Scanner(System.in);
 		System.out.println("Welcome to Cryptogram!!");
+		System.out.println("Please enter your username");
+		game.loadPlayer();
+		//Player player = new Player(0, 0, 0, 0, 0, null);
 		game.decideCryptogram(myScan); //this had to be a seperate method otherwise it couldn't find it from if statements
 		game.printEncryption();
 		String responce;
@@ -21,10 +24,10 @@ public class Driver {
 		Player player = new Player(0, 0, 0, 0, 0, "Theo");
 		while (true) {
 			System.out.println("What would you like to do? enter the number");
-			System.out.println("(1) make guess    (2) remove guess (3) give up (4) leave");
+			System.out.println("(1) make guess    (2) remove guess (3) give up (4) leave (5) see my stats");
 			responce = myScan.nextLine();
 			if(responce.equals("1")) {
-				game.enterLetter(player); //this exists in another branch
+				//game.enterLetter(player); //this exists in another branch
 			} else if (responce.equals("2")) {
 			
 				game.undoLetter(); //this also exists in another branch
@@ -41,7 +44,9 @@ public class Driver {
 					player.savePlayer();
 				}
 				break;
-			} else {
+			} else if(responce.equals("5")){
+				game.printPlayerStats();
+			}else {
 				System.out.println("I'm sorry that doesn't seem to be a valid input, please try again");
 			}
 		}

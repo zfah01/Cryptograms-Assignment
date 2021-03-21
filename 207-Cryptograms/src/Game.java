@@ -13,13 +13,45 @@ public class Game {
 	public boolean checkPrint = false;//used for testing purposes
 	public int mapped = 0;//keeps track of how many letters user has mapped a value to
 	private File playerFile;
+	private Player currentPlayer;
+	private Players playerGameMapping = new Players();
+	
 	public Game() {
-		//File playerFile = new File("PlayerFile.txt");
+		
+        playerGameMapping.loadPlayers(); 
+		File playerFile = new File("playerFile.txt");
+		
 	}
 	
-
-	public void callSavePlayer(Player player) {
-		player.savePlayer();
+	public Player loadPlayer()
+	
+  {	    
+	    Scanner scan = new Scanner(System.in)
+		String username = scan.next();
+		currentPlayer = playerGameMapping.findPlayer(username);
+		if (currentPlayer == null) {
+			System.out.println("This player does not exist!");
+			System.out.println("New Player has been created: " + username);
+			currentPlayer = new Player(0,0,0,0,0,username);
+			playerGameMapping.addPlayer(currentPlayer);
+		}
+		return currentPlayer;
+		
+	}
+	
+	public void printPlayerStats() {
+		System.out.println("Stats for " + currentPlayer.getUsername());
+		System.out.println("Accuracy of guesses: " + currentPlayer.getAccuracy());
+		System.out.println("Total guesses made: " + currentPlayer.getTotalGuesses());
+		System.out.println("Correct guesses: " + currentPlayer.getCorrectGuesses());
+		System.out.println("Cryptograms played: " + currentPlayer.getCryptogramsPlayed());
+		System.out.println("Cryptograms completed: " + currentPlayer.getSolved());
+		
+		
+	}
+	
+	public File getPlayerFile() {
+		return playerFile;
 	}
 	
 	public void onStartup() throws IOException {
@@ -47,7 +79,7 @@ public class Game {
 	//public for testing purposes
 	public void establishCrypt(Cryptogram crypto) {
 		crypt = crypto.getEncryptedArrayList();
-		crypt2 = new ArrayList<>(crypt);
+		crypt2 = crypto.getEncryptedArrayList();
 		answer = crypto.getPhraseArrayListStatic();
 	}
 	//helper method to create the cryptogram
@@ -131,7 +163,7 @@ public class Game {
 					replaceAt = i;//need a value where the value definitely has been
 				}
 			}
-			if (!valueThere) {
+			if (!valueThere && !guessed) {
 				System.out.println("ERROR: value selected not in cryptogram");
 				return;
 			}
@@ -165,12 +197,23 @@ public class Game {
 				}
 				player.addTotalGuesses();
 				player.updateAccuracy();
-				
 			}
-			System.out.println("You have replaced "+ value +" with "+ guess);
-			System.out.println("The new cryptogram is: ");
-			for(int i = 0; i < crypt.size()/2;i++) {
-				System.out.print(crypt.get(i));
+			if(mapped == (crypt2.size()/2)) {
+				player.incrementCryptogramsPlayed();
+				for(int i = 0; i <(answer.size())/2;i++) {
+					if(crypt.get(i).equals(answer.get(i))) {
+						correct = true;
+					}else {
+						correct = false;
+						break;
+					}
+				}
+				if(!correct) {
+				System.out.println("User has failed cryptogram :(");
+				}else {
+					System.out.println("User has successfully completed cryptogram!!");
+					player.addSolved();
+				}
 			}
 			System.out.println();
 			checkMapped(player);
@@ -250,3 +293,4 @@ public class Game {
 
 
 }
+
