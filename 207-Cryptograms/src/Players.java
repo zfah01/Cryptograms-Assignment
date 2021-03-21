@@ -80,8 +80,8 @@ public class Players {
 		
        
 		catch (FileNotFoundException e) {
-            System.out.println("File Not Found");
-            e.printStackTrace();
+            System.out.println("Player File can't be found, we can't get any saved players");
+            //e.printStackTrace();
         }
 		 
 	    

@@ -19,14 +19,12 @@ public class Game {
 	public Game() {
 		
         playerGameMapping.loadPlayers(); 
-		File playerFile = new File("playerFile.txt");
+        playerFile = new File("playerFile.txt");
 		
 	}
 	
-	public Player loadPlayer()
-	
-  {	    
-	    Scanner scan = new Scanner(System.in)
+	public Player loadPlayer() {	    
+	    Scanner scan = new Scanner(System.in);
 		String username = scan.next();
 		currentPlayer = playerGameMapping.findPlayer(username);
 		if (currentPlayer == null) {
@@ -126,6 +124,7 @@ public class Game {
 	
 	public void enterLetter(Player player) {
 		boolean guessed = false;//checks if guess has been made or value has been replaced
+		boolean correct = false;
 		Scanner myObj = new Scanner(System.in);
 		System.out.println("Please enter your guess: ");
 		String guess = myObj.nextLine().trim().toUpperCase();  //this is the guess
@@ -289,6 +288,10 @@ public class Game {
 	//this function is mostly used for testing purposes
 	public Cryptogram getCryptogram() {
 		return cryptogram;
+	}
+	
+	public void callSavePlayer(Player player) {
+		player.savePlayer();
 	}
 
 
