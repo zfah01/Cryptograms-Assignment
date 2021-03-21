@@ -12,9 +12,9 @@ public class Player {
 	private String username;
 	private double accuracy;
 	private int cryptogramsPlayed;
-
+	private File playerFile = new File("PlayerFile.txt");
 	
-	public Player(int totalGuesses, int correctGuesses,int solved, double accuracy, int cryptogramsPlayed, String username ) {
+	public Player(int totalGuesses, int correctGuesses,int solved, double accuracy, int cryptogramsPlayed, String username) {
 		this.totalGuesses = totalGuesses;
 		this.correctGuesses = correctGuesses;
 		this.solved = solved;
@@ -67,8 +67,13 @@ public class Player {
 	public void addSolved() {
 		solved++;
 	}
-	public void savePlayer(File playerFile) {
+	public File getPlayerFile() {
+		return playerFile;
+	}
+	
+	public void savePlayer() {
 		
+
 		try {
 			PrintWriter myWriter = new PrintWriter(playerFile);//this is the file that holds all the player details
 			myWriter.println(username);

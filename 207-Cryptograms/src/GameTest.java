@@ -51,7 +51,7 @@ class GameTest {
 			assertEquals("Sorry that doesn't appear to be an option, would you like numbers or letters?", outputStreamCaptor.toString().trim());
 			System.setOut(standardout);
 			
-		} */
+		} 
 	@Test
 	void testDecideCryptogramforLetter() throws IOException {
 		Game game = new Game();
@@ -62,10 +62,12 @@ class GameTest {
 		ByteArrayInputStream in = new ByteArrayInputStream("letters".getBytes());
 		System.setIn(in);
 		Scanner scan = new Scanner(System.in);
-		Cryptogram crypto = game.decideCryptogram(scan);
+		game.decideCryptogram(scan);
+		Cryptogram crypto = game.getCryptogram();
 		char firstLetter = crypto.getEncrypted().charAt(0);
 		assertFalse(Character.isDigit(firstLetter));
 	}
+	
 	
 	//theres a lot of distincations between so better keep them seperate
 	@Test
@@ -78,7 +80,8 @@ class GameTest {
 		ByteArrayInputStream in = new ByteArrayInputStream("numbers".getBytes());
 		System.setIn(in);
 		Scanner scan = new Scanner(System.in);
-		Cryptogram crypto = game.decideCryptogram(scan);
+		game.decideCryptogram(scan);
+		Cryptogram crypto = game.getCryptogram();
 		char firstLetter = crypto.getEncrypted().charAt(0);
 		assertTrue(Character.isDigit(firstLetter));
 	}
@@ -89,20 +92,20 @@ class GameTest {
 		//String input = "Not good answer";
 		Game game = new Game();
 		game.onStartup();
-		Cryptogram cryp = new LettersCryptogram("Testing");
+		Cryptogram crypto = new Cryptogram("test", "abca");
 		Player player = new Player();
-		game.establishCrypt(cryp);
+		game.establishCrypt(crypto);
 		PrintStream standardout = System.out;
 		ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outputStreamCaptor));
-		Cryptogram crypto = new Cryptogram("test", "abca");
-		game.printEncryption(crypto);
+		
+		game.printEncryption();
 		String expected = crypto.getEncrypted() + "\nFrequencies\na b c d e f g h i j k l m n o p q r s t u v w x y z\n0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0 0 0 0 0 0";
 		assertEquals(expected, outputStreamCaptor.toString().trim());
 		System.setOut(standardout);
 	}
 	
-	/* The next 4 tests can only be run 1 at a time because they all use a scanner*/
+	//The next 4 tests can only be run 1 at a time because they all use a scanner
 	@Test
 	void testguess() {
 		Game game = new Game();
@@ -112,7 +115,7 @@ class GameTest {
 		String guess = "t";//make sure this is what you put in the scanner when asked
 		//the value entered should be the first letter displayed in terminal
 		System.out.println(cryp.getEncrypted());
-		game.enterLetter(cryp, player);
+		game.enterLetter(player);
 		assertEquals(guess, game.crypt.get(0));//check that guess has replaced where value was
 		
 	}
@@ -127,7 +130,7 @@ class GameTest {
 		game.values.add(game.crypt.get(0));
 		game.valuePlaces.add(0);
 		System.out.println(cryp.getEncrypted());
-		game.enterLetter(cryp, player);//input a
+		game.enterLetter(player);//input a
 		assertTrue(game.checkPrint);
 	}
 	
@@ -142,20 +145,24 @@ class GameTest {
 		game.values.add(game.crypt.get(0));
 		game.valuePlaces.add(0);
 		System.out.println(cryp.getEncrypted());
-		game.enterLetter(cryp, player);
+		game.enterLetter(player);
 		//enter y for test to pass
 		assertEquals(guess, game.crypt.get(0));//check that guess has replaced where value was
 		//assertEquals(value, values.get(0));
 	}
 	
+	*/
+	/*
 	@Test
 	void testNotComplete() {
 		Game game = new Game();
-		Cryptogram cryp = new LettersCryptogram("Testing");
-		Player player = new Player();
+		Cryptogram cryp = new LettersCryptogram("testing");
+		Player player = new Player(0, 0, 0, 0, 0, null);
 		game.establishCrypt(cryp);
 		game.mapped = 6;
 		String guess = "g";
+		System.out.println(game.answer);
+		System.out.println("boop");
 		game.values.add(game.crypt.get(0));
 		game.values.add(game.crypt.get(1));
 		game.values.add(game.crypt.get(2));
@@ -167,22 +174,63 @@ class GameTest {
 		game.valuePlaces.add(4);
 		game.valuePlaces.add(5);
 		game.guesses.add("t");
-		game.guesses.add("a");
+		game.guesses.add("e");
 		game.guesses.add("s");
 		game.guesses.add("i");
 		game.guesses.add("n");
 		game.crypt.set(0, "t");
-		game.crypt.set(1, "a");
+		game.crypt.set(1, "e");
 		game.crypt.set(2, "s");
 		game.crypt.set(3, "t");
 		game.crypt.set(4, "i");
 		game.crypt.set(5, "n");
 		System.out.println(cryp.getEncrypted());
 		System.out.println(game.crypt.size());
-		game.enterLetter(cryp, player);
+		game.enterLetter(player);
 		assertTrue(player.getSolved() == 0);//checks that solved wasn't incremented
 		
 	}
+	
+	
+	@Test
+	void testComplete() {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("testing");
+		Player player = new Player(0, 0, 0, 0, 0, null);
+		game.establishCrypt(cryp);
+		game.mapped = 6;
+		String guess = "g";
+		System.out.println(game.answer);
+		System.out.println("boop");
+		game.values.add(game.crypt.get(0));
+		game.values.add(game.crypt.get(1));
+		game.values.add(game.crypt.get(2));
+		game.values.add(game.crypt.get(4));
+		game.values.add(game.crypt.get(5));
+		game.valuePlaces.add(0);
+		game.valuePlaces.add(1);
+		game.valuePlaces.add(2);
+		game.valuePlaces.add(4);
+		game.valuePlaces.add(5);
+		game.guesses.add("t");
+		game.guesses.add("e");
+		game.guesses.add("s");
+		game.guesses.add("i");
+		game.guesses.add("n");
+		game.crypt.set(0, "t");
+		game.crypt.set(1, "e");
+		game.crypt.set(2, "s");
+		game.crypt.set(3, "t");
+		game.crypt.set(4, "i");
+		game.crypt.set(5, "n");
+		System.out.println(cryp.getEncrypted());
+		System.out.println(game.crypt.size());
+		System.out.println(game.crypt2);
+		game.enterLetter(cryp, player);
+		assertTrue(player.getSolved() == 1);//checks that solved wasn't incremented
+		
+	}
+	
 	
 	@Test
 	public void testLetterWithoutGuess() {
@@ -217,4 +265,30 @@ class GameTest {
 		assertEquals(game.crypt.get(0), "a");
 	}
 
+
+	*/
+	@Test
+	public void testFile() {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("testing");
+		Player player = new Player(0, 0, 0, 0, 0, "name");
+		game.establishCrypt(cryp);
+		game.callSavePlayer(player);
+		boolean fileExists = player.getPlayerFile().exists();
+		assertTrue(fileExists);
+	}
+	@Test
+	public void testFileWrites() throws FileNotFoundException {
+		Game game = new Game();
+		Cryptogram cryp = new LettersCryptogram("testing");
+		Player player = new Player(0, 0, 0, 0, 0, "name");
+		String saveUser;
+		game.establishCrypt(cryp);
+		game.callSavePlayer(player);
+		Scanner reading = new Scanner(player.getPlayerFile());
+		saveUser = reading.next();
+		assertEquals(saveUser, player.getUsername());
+		
+		
+	}
 }

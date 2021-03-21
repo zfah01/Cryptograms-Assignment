@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Cryptogram {
 	private String phrase;
 	private String encrypted;
-	private int frequencies[] = new int[26];
+	private int[] frequencies = new int[26];
 	private static ArrayList<String> Arrayphrase;
 	private static ArrayList<String> encrpytion;
 	
@@ -13,7 +13,7 @@ public class Cryptogram {
 		Arrayphrase = new ArrayList<>();
 		encrpytion = new ArrayList<>();
 		createMap();
-		String alphabet = "abcdefghijklmnopqrstuvwxyz";
+		String alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
 		for(int i = 0; i<26; i++) {
 			frequencies[i] = calculateFrequency(alphabet.charAt(i), phrase);
 		}
