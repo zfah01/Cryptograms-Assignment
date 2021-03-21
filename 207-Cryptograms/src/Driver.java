@@ -63,11 +63,7 @@ public class Driver {
 				case "4":
 					System.out.print("Do you want to save your profile? [y] or [n]");
 					response = myScan.nextLine().trim();
-					if (response.equalsIgnoreCase("y")) {
-						//game.callSavePlayer(player);
-						//player.savePlayer(game.getPlayerFile());
-						playerGameMapping.savePlayer(player);
-					}
+					playerGameMapping.savePlayer(response, player.getUsername());
 					break label;
 				case "5":
 					game.saveGame(player);

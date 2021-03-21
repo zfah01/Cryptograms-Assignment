@@ -31,11 +31,13 @@ public class Game {
 
 
 	public Game() {
+
 		playerFile = new File("playerFile.txt");
 		try {
 			onStartup();
 		} catch (IOException e){
 			e.printStackTrace();
+
 		}
 	}
 
@@ -77,7 +79,7 @@ public class Game {
 	public void establishCrypt(Cryptogram crypto) {
 		crypt = crypto.getEncryptedArrayList();
 		crypt2 = crypto.getEncryptedArrayList();
-		answer = crypto.getPhraseArrayListStatic();
+		answer = crypto.getPhraseArrayList();
 	}
 	//helper method to create the cryptogram
 	private Cryptogram createLetters() {
@@ -345,4 +347,5 @@ public class Game {
 	public Cryptogram getCryptogram() {
 		return cryptogram;
 	}
+
 }

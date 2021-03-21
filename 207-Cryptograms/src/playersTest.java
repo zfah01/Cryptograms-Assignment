@@ -19,12 +19,14 @@ public class playersTest {
 	public void testLoadStats() {
 
 
+
 		//player with the username "Harry" exists
 		Players playerGameMapping = new Players();
 		playerGameMapping.loadPlayers();
 		Player player = Driver.loadPlayer("Harry", playerGameMapping);
 		player.printPlayerStats();
         assertEquals(24.6, player.getAccuracy()); //checks if player has accuracy of 24.6
+
 	}
 	
 /*	@Test(expected = FileNotFoundException.class)

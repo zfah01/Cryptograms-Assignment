@@ -67,7 +67,7 @@ public class Players {
 		try (Scanner scanner = new Scanner(file)) {
        
 			while (scanner.hasNext()) {
-				String username = scanner.nextLine().trim();
+				String username = scanner.next().trim();
 				double accuracy = scanner.nextDouble();
 				int correctGuesses = scanner.nextInt();
 				int totalGuesses = scanner.nextInt();
@@ -89,18 +89,22 @@ public class Players {
 		
     }
     
-	public void savePlayer(Player player) {
+	public void savePlayer(String yesNo, String username) {
 		
 		File file = new File(playerFile);
 		try {
 			PrintWriter myWriter = new PrintWriter(file);//this is the file that holds all the player details
-			myWriter.println(player.getUsername());
-			myWriter.println(player.getTotalGuesses());
-			myWriter.println(player.getCorrectGuesses());
-			myWriter.println(player.getSolved());
-			myWriter.println(player.getAccuracy());
-			myWriter.println(player.getCryptogramsPlayed());
-			myWriter.println();
+			for (int i = 0; i < allPlayers.size(); i++) {
+				if(!(yesNo.equalsIgnoreCase("n") && (allPlayers.get(i).getUsername().equals(username)))) {
+					myWriter.print(allPlayers.get(i).getUsername() + " ");
+					myWriter.print(allPlayers.get(i).getAccuracy() + " ");
+					myWriter.print(allPlayers.get(i).getTotalGuesses() + " ");
+					myWriter.print(allPlayers.get(i).getCorrectGuesses() + " ");
+					myWriter.print(allPlayers.get(i).getSolved() + " ");
+					myWriter.print(allPlayers.get(i).getCryptogramsPlayed());
+					myWriter.println();
+				}
+			}
 		    myWriter.close();
 		    System.out.println("Player details saved");
 	    } catch (IOException e) {
