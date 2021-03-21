@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -88,8 +89,25 @@ public class Players {
 		
     }
     
+	public void savePlayer(Player player) {
+		
+		File file = new File(playerFile);
+		try {
+			PrintWriter myWriter = new PrintWriter(file);//this is the file that holds all the player details
+			myWriter.println(player.getUsername());
+			myWriter.println(player.getTotalGuesses());
+			myWriter.println(player.getCorrectGuesses());
+			myWriter.println(player.getSolved());
+			myWriter.println(player.getAccuracy());
+			myWriter.println(player.getCryptogramsPlayed());
+			myWriter.println();
+		    myWriter.close();
+		    System.out.println("Player details saved");
+	    } catch (IOException e) {
+	        System.out.println("An error occurred, and details can't be saved");
+	        //e.printStackTrace();
+	      }
+	}
 
-    
-   
 }
 

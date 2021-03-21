@@ -12,7 +12,7 @@ public class Player {
 	private String username;
 	private double accuracy;
 	private int cryptogramsPlayed;
-	private File playerFile = new File("PlayerFile.txt");
+	private File playerFile = new File("PlayerFile.txt"); //this is here for testing reasons
 	
 	public Player(int totalGuesses, int correctGuesses,int solved, double accuracy, int cryptogramsPlayed, String username) {
 		this.totalGuesses = totalGuesses;
@@ -71,23 +71,4 @@ public class Player {
 		return playerFile;
 	}
 	
-	public void savePlayer() {
-		
-
-		try {
-			PrintWriter myWriter = new PrintWriter(playerFile);//this is the file that holds all the player details
-			myWriter.println(username);
-			myWriter.println(totalGuesses);
-			myWriter.println(correctGuesses);
-			myWriter.println(solved);
-			myWriter.println(accuracy);
-			myWriter.println(cryptogramsPlayed);
-			myWriter.println();
-		    myWriter.close();
-		    System.out.println("Player details saved");
-	    } catch (IOException e) {
-	        System.out.println("An error occurred.");
-	        e.printStackTrace();
-	      }
-	}
 }

@@ -197,23 +197,6 @@ public class Game {
 				player.addTotalGuesses();
 				player.updateAccuracy();
 			}
-			if(mapped == (crypt2.size()/2)) {
-				player.incrementCryptogramsPlayed();
-				for(int i = 0; i <(answer.size())/2;i++) {
-					if(crypt.get(i).equals(answer.get(i))) {
-						correct = true;
-					}else {
-						correct = false;
-						break;
-					}
-				}
-				if(!correct) {
-				System.out.println("User has failed cryptogram :(");
-				}else {
-					System.out.println("User has successfully completed cryptogram!!");
-					player.addSolved();
-				}
-			}
 			System.out.println();
 			checkMapped(player);
 
@@ -291,7 +274,7 @@ public class Game {
 	}
 	
 	public void callSavePlayer(Player player) {
-		player.savePlayer();
+		playerGameMapping.savePlayer(player);
 	}
 
 

@@ -41,7 +41,7 @@ public class Driver {
 				if(responce.equals("y")){
 					//game.callSavePlayer(player);
 					//player.savePlayer(game.getPlayerFile());
-					player.savePlayer();
+					game.callSavePlayer(player);
 				}
 				break;
 			} else if(responce.equals("5")){
