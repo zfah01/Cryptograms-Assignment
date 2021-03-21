@@ -5,6 +5,7 @@ public class LettersCryptogram extends Cryptogram{
 	public LettersCryptogram(String phrase) {
 		super(phrase, encrypt(phrase));
 		super.createMap();
+		type = "letters";
 	}
 	
 	/* 
@@ -25,6 +26,18 @@ public class LettersCryptogram extends Cryptogram{
 		    }
 		}
 		return result.toString(); 	
+	}
+
+	public void printEncryption() {
+		String alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z".toUpperCase(); //alphabet better cycles through the letters
+		int[] frequencies = getFrequency();
+		System.out.println(getEncrypted());
+		System.out.println("Frequencies");
+		System.out.println(alphabet);
+		for (int i = 0; i < 26; i++) {
+			System.out.print(frequencies[i] + " ");
+		}
+		System.out.println(); //extra line to break things up
 	}
 	
 }

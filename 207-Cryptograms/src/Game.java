@@ -1,6 +1,19 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.io.*;
+
 public class Game {
 	public ArrayList<String> guesses = new ArrayList<>();//array with letters guessed
 	public ArrayList<String> crypt;//array with cryptogram and guesses
@@ -13,10 +26,28 @@ public class Game {
 	public boolean checkPrint = false;//used for testing purposes
 	public int mapped = 0;//keeps track of how many letters user has mapped a value to
 	private File playerFile;
+	String saveFileName = "save.json";
 	public Game() {
 		File playerFile = new File("PlayerFile.txt");
+		try {
+			onStartup();
+		} catch (IOException e){
+			e.printStackTrace();
+		}
 	}
-	
+
+	public Game(ArrayList<String> guesses, ArrayList<String> crypt, ArrayList<String> crypt2, ArrayList<String> values, ArrayList<Integer> valuePlaces, ArrayList<String> answer, Cryptogram cryptogram, int mapped){
+		// constructor to load game
+		this();
+		this.guesses = guesses;
+		this.crypt = crypt;
+		this.crypt2 = crypt2;
+		this.values = values;
+		this.valuePlaces = valuePlaces;
+		this.answer = answer;
+		this.cryptogram = cryptogram;
+		this.mapped = mapped;
+	}
 	public File getPlayerFile() {
 		return playerFile;
 	}
@@ -24,14 +55,8 @@ public class Game {
 	public void onStartup() throws IOException {
 		File file = new File("CryptogramSentences.txt");
 		BufferedReader br = new BufferedReader(new FileReader(file));
-		while (true) {
-			String next = br.readLine();
-		//System.out.println(next);
-			if (next == null) {
-				break;
-			} else {
-				phrases.add(next);
-			}
+		for (String line = br.readLine(); line != null; line = br.readLine()){
+			phrases.add(line);
 		}
 		br.close();
 	}
@@ -60,13 +85,14 @@ public class Game {
 		Cryptogram crypto = new NumbersCryptogram(phrases.get(ThreadLocalRandom.current().nextInt(1, 14)));
 		return crypto;
 	}
+
+
 	
 	public void decideCryptogram(Scanner scan) {
-		boolean decided = false;
-		while(!decided) {
-			System.out.println("Would you like a numbers or letters cryptogram");
-			String type = scan.next();
-			if (type.toLowerCase().equals("letters")) {
+		while(true) {
+			System.out.println("Would you like a [numbers] or [letters] cryptogram: ");
+			String type = scan.nextLine().trim();
+			if (type.equalsIgnoreCase("letters")) {
 				cryptogram = createLetters();
 				break;
 			} else if(type.equalsIgnoreCase("numbers")) {
@@ -80,15 +106,7 @@ public class Game {
 	}
 	
 	public void printEncryption() {
-		String alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z"; //alphabet better cylces through the letters
-		int[] frequencies = cryptogram.getFrequency();
-		System.out.println(cryptogram.getEncrypted());
-		System.out.println("Frequencies");
-		System.out.println(alphabet);
-		for (int i = 0; i < 26; i++) {
-			System.out.print(frequencies[i] + " ");
-		}
-		System.out.println(); //extra line to break things up
+		cryptogram.printEncryption();
 	}
 	
 	public void enterLetter(Player player) {
@@ -100,10 +118,10 @@ public class Game {
 		if(!guesses.isEmpty() && guesses.contains(guess)){  //checks if letter has been guessed before
 			guessed = true;
 		}
-		if(guessed) {
+		if (guessed) {
 			System.out.println("You have already guessed this letter. Please try again.");//error message if letter has been guessed
 			checkPrint = true;
-		}else {
+		} else {
 			guesses.add(guess);//guess has been added to array of guesses
 			System.out.println("Please enter the value to replace your guess with: ");
 			String value = myObj.nextLine().trim().toUpperCase();// get value to replace with guess
@@ -121,7 +139,7 @@ public class Game {
 			}
 			if(guessed) {//what happens if value has been guessed before
 				System.out.println("You have already replaced this value. Do you want to overwrite this? y/n");
-				String yesno = myObj.nextLine().trim();
+				String yesno = myObj.nextLine().trim().toLowerCase();
 				if(yesno.equals("n"))//if you want to cancel your guess
 					return;//kill the method
 			}
@@ -231,6 +249,86 @@ public class Game {
 		System.out.println("I'm sorry you've given up");
 		System.out.println("The answer to your cryptogram is: " + cryptogram.getPhrase());
 	}
+
+	public void saveGame(Player player) {
+		JsonObject gameJson = getGameAsJsonObject(player, LocalDateTime.now());
+		List <JsonObject> savedData = getSavedDataFromFile(LocalDateTime.now());
+		deleteSameSavedGameFromSavedDataList(savedData, player);
+		savedData.add(gameJson);
+		saveSavedGamesListToFile(savedData);
+	}
+
+	public JsonObject getGameAsJsonObject(Player player, LocalDateTime now){
+		Gson gson = new Gson();
+		JsonObject gameJson = new JsonObject();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+
+		gameJson.addProperty("guesses", gson.toJson(guesses));
+		gameJson.addProperty("crypt", gson.toJson(crypt));
+		gameJson.addProperty("crypt2", gson.toJson(crypt2));
+		gameJson.addProperty("values", gson.toJson(values));
+		gameJson.addProperty("valuePlaces", gson.toJson(valuePlaces));
+		gameJson.addProperty("cryptogram", gson.toJson(cryptogram));
+		gameJson.addProperty("answer", gson.toJson(answer));
+		gameJson.addProperty("checkPrint", checkPrint);
+		gameJson.addProperty("mapped", mapped);
+		gameJson.addProperty("player", player.getUsername());
+		gameJson.addProperty("time", dtf.format(now));
+
+		return gameJson;
+
+	}
+
+	public List<JsonObject> getSavedDataFromFile(LocalDateTime now){
+		Gson gson = new Gson();
+		List <JsonObject> savedData;
+		try {
+			JsonReader jReader = new JsonReader(new FileReader(saveFileName));
+			savedData = gson.fromJson(jReader,  new TypeToken<List<JsonObject>>(){}.getType());
+			if (savedData == null) savedData = new ArrayList<JsonObject>();
+		} catch (FileNotFoundException ex) {
+			savedData = new ArrayList<JsonObject>();
+		} catch (JsonSyntaxException ex) {  // if save file was found to be corrupt, take backup and create a new one
+			System.out.println("ERROR: save file is corrupt. File will be backed up and new save file will be created");
+			DateTimeFormatter dtf_filename = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+			String newFileName = "save_" + dtf_filename.format(now) + ".json";
+			try {
+				Files.move(Paths.get(saveFileName), Paths.get(newFileName));
+			} catch (IOException ioex) {
+				System.out.println("ERROR: Could not rename corrupt save file");
+				ioex.printStackTrace();
+			}
+			savedData = new ArrayList<JsonObject>();
+		}
+		return savedData;
+	}
+
+	public void deleteSameSavedGameFromSavedDataList(List<JsonObject> savedData, Player player){
+		Gson gson = new Gson();
+		// overwrite saved game when the exact same game is re-saved
+		for (int i=0; i < savedData.size(); i++){
+			JsonObject savedGame = savedData.get(i);
+			if (savedGame.get("player").getAsString().equals(player.getUsername()) &&
+					savedGame.get("crypt").getAsString().equals(gson.toJson(crypt))) {
+				savedData.remove(i);
+				System.out.println("Overwriting older copy of saved game");
+				break;
+			}
+		}
+	}
+
+	public void saveSavedGamesListToFile(List<JsonObject> savedData){
+		try {
+			Writer writer = new FileWriter(saveFileName, false);
+			new Gson().toJson(savedData, writer);
+			System.out.println("Game saved");
+			writer.close();
+		} catch (IOException ex) {
+			System.out.println("ERROR: could not save game");
+			ex.printStackTrace();
+		}
+	}
+
 	
 	//this function is mostly used for testing purposes
 	public Cryptogram getCryptogram() {

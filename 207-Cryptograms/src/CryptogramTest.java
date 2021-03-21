@@ -33,7 +33,7 @@ class CryptogramTest {
 	
 	@Test
 	void getEncryptedArrayList() {	
-		ArrayList<String> testlist = new ArrayList<String>();
+		ArrayList<String> testlist = new ArrayList<>();
 		testlist.add("a");
 		testlist.add("b");
 		testlist.add("c");
@@ -43,7 +43,7 @@ class CryptogramTest {
 	
 	@Test
 	void getPhraseArrayList() {
-		ArrayList<String> testlist = new ArrayList<String>();
+		ArrayList<String> testlist = new ArrayList<>();
 		testlist.add("t");
 		testlist.add("e");
 		testlist.add("s");
@@ -53,8 +53,8 @@ class CryptogramTest {
 	@Test
 	void testCreateMap() {
 		//the create map works if both the arraylists are equal to what the parameters are
-		ArrayList<String> phrase = new ArrayList<String>();
-		ArrayList<String> encryp = new ArrayList<String>();
+		ArrayList<String> phrase = new ArrayList<>();
+		ArrayList<String> encryp = new ArrayList<>();
 		//all the adds on one line to save space
 		phrase.add("t"); phrase.add("e"); phrase.add("s"); phrase.add("t");
 		encryp.add("a"); encryp.add("b"); encryp.add("c"); encryp.add("a");

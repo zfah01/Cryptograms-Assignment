@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
 public class Cryptogram {
-	private String phrase;
-	private String encrypted;
-	private int[] frequencies = new int[26];
-	private static ArrayList<String> Arrayphrase;
-	private static ArrayList<String> encrpytion;
+	protected String type;
+	protected String phrase;
+	protected String encrypted;
+	protected int[] frequencies = new int[26];
+	protected static ArrayList<String> Arrayphrase;
+	protected static ArrayList<String> encrpytion;
 	
 	public Cryptogram(String inputPhrase,String encrypted) {
 		phrase = inputPhrase;
@@ -13,18 +14,21 @@ public class Cryptogram {
 		Arrayphrase = new ArrayList<>();
 		encrpytion = new ArrayList<>();
 		createMap();
-		String alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
-		for(int i = 0; i<26; i++) {
-			frequencies[i] = calculateFrequency(alphabet.charAt(i), phrase);
-		}
-		
+		calculateFrequencyArray();
 	}
 	
 	public String getEncrypted() {
 		return encrypted;
 	}
+
+	protected void calculateFrequencyArray(){
+		String alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
+		for(int i = 0; i<26; i++) {
+			frequencies[i] = calculateFrequency(alphabet.charAt(i), encrypted);
+		}
+	}
 	
-	private int calculateFrequency(char letter, String Phrase) {
+	protected int calculateFrequency(char letter, String Phrase) {
 		int count = 0;
 		for(int i = 0; i < Phrase.length(); i++) {
 			if(Phrase.charAt(i) == letter)
@@ -32,7 +36,6 @@ public class Cryptogram {
 		}
 		//System.out.println(count);
 		return count;
-		
 	}
 	
 	public String getPhrase() {
@@ -87,5 +90,7 @@ public class Cryptogram {
 	public ArrayList<String> getPhraseArrayList() {
 		return Arrayphrase;
 	}
-	
+
+	public void printEncryption() {
+	}
 }
