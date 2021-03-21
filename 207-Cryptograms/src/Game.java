@@ -30,14 +30,14 @@ public class Game {
 	private Player currentPlayer;
 
 
+
 	public Game() {
 
 		playerFile = new File("playerFile.txt");
 		try {
 			onStartup();
-		} catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
-
 		}
 	}
 
@@ -83,7 +83,7 @@ public class Game {
 	}
 	//helper method to create the cryptogram
 	private Cryptogram createLetters() {
-		Cryptogram crypto = new LettersCryptogram(phrases.get(ThreadLocalRandom.current().nextInt(1, 14)));
+		Cryptogram crypto = new LettersCryptogram(phrases.get(ThreadLocalRandom.current().nextInt(1, 10)));
 		return crypto;
 	}
 	
@@ -96,10 +96,12 @@ public class Game {
 
 	
 	public void decideCryptogram(Scanner scan) {
+
 		while(true) {
 			System.out.println("Would you like a [numbers] or [letters] cryptogram: ");
 			String type = scan.nextLine().trim();
 			if (type.equalsIgnoreCase("letters")) {
+
 				cryptogram = createLetters();
 				break;
 			} else if(type.equalsIgnoreCase("numbers")) {
@@ -342,10 +344,11 @@ public class Game {
 		}
 	}
 
-	
+
 	//this function is mostly used for testing purposes
 	public Cryptogram getCryptogram() {
 		return cryptogram;
 	}
+
 
 }

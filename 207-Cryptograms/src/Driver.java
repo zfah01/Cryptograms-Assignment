@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 import com.google.gson.Gson;
 
+
 public class Driver {
 	static String saveFileName = "save.json";
 
@@ -40,6 +41,7 @@ public class Driver {
 			game = new Game();
 			game.decideCryptogram(myScan);
 		}
+
 
 		game.printEncryption();
 		String response;
@@ -216,6 +218,7 @@ public class Driver {
 		return currentPlayer;
 
 	}
+
 }
 
 

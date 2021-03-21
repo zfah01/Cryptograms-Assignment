@@ -20,7 +20,7 @@ public class Players {
 		Player seekedPlayer = null;
 		 for(Player player : allPlayers)
 	        {
-	            if(player.getUsername().equals(username)) {
+	            if(player.getUsername().equalsIgnoreCase(username)) {
 	                seekedPlayer = player;
 	                break;
 	            }
@@ -106,7 +106,10 @@ public class Players {
 				}
 			}
 		    myWriter.close();
-		    System.out.println("Player details saved");
+			if (yesNo.equalsIgnoreCase("y"))
+		    	System.out.println("Player details saved");
+			else
+				System.out.println("Player details deleted");
 	    } catch (IOException e) {
 	        System.out.println("An error occurred, and details can't be saved");
 	        //e.printStackTrace();
