@@ -118,22 +118,5 @@ class SaveGameTest {
 
     }
 
-    @Test
-    void testSaveSavedGamesListToFile(){
-        JsonObject gameJson1 = new JsonObject();
-        gameJson1.addProperty("player", "Jack");
-        gameJson1.addProperty("crypt", "[\"C\",\"P\",\"R\"]");
 
-        JsonObject gameJson2 = new JsonObject();
-        gameJson2.addProperty("player", "Saeed");
-        gameJson2.addProperty("crypt", "[\"H\",\"W\",\"I\"]");
-
-        List<JsonObject> savedList = new ArrayList<>();
-        savedList.add(gameJson1);
-        savedList.add(gameJson2);
-
-        Gson mockGson = mock(Gson.class);
-        FileWriter mockFileWriter = mock(FileWriter.class);
-        //when(mockGson.toJson()).thenReturn(null);
-    }
 }

@@ -50,7 +50,7 @@ public class playersTest {
 		Players playerGameMapping = new Players();
 		playerGameMapping.loadPlayers();
 		Player player = Driver.loadPlayer("Harry", playerGameMapping);
-	    assertEquals(0, player.getCryptogramsPlayed());
+	    assertEquals(5, player.getCryptogramsPlayed());
 	    assertNotNull(player); //newPlayer has been created
 	   
 	}
