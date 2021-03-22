@@ -11,6 +11,7 @@ public class Player {
 	private String username;
 	private double accuracy = 0;
 	private int cryptogramsPlayed = 0;
+	private File playerFile = new File("PlayerFile.txt"); //this is here for testing reasons
 	
 	public Player(int totalGuesses, int correctGuesses, int solved, double accuracy, int cryptogramsPlayed, String username) {
 		this.totalGuesses = totalGuesses;
@@ -53,7 +54,7 @@ public class Player {
 	
 	public void updateAccuracy() {
 		if(totalGuesses >0)
-			accuracy = correctGuesses/totalGuesses;
+			accuracy = correctGuesses*100/totalGuesses;
 	}
 	
 	public void incrementCryptogramsPlayed() {
@@ -71,22 +72,17 @@ public class Player {
 	public void addSolved() {
 		solved++;
 	}
-	public void savePlayer(File playerFile) {
-		
-		try {
-			PrintWriter myWriter = new PrintWriter(playerFile);//this is the file that holds all the player details
-			myWriter.println(username);
-			myWriter.println(totalGuesses);
-			myWriter.println(correctGuesses);
-			myWriter.println(solved);
-			myWriter.println(accuracy);
-			myWriter.println(cryptogramsPlayed);
-			myWriter.println();
-		    myWriter.close();
-		    System.out.println("Player details saved");
-	    } catch (IOException e) {
-	        System.out.println("An error occurred.");
-	        e.printStackTrace();
-	      }
+	public File getPlayerFile() {
+		return playerFile;
 	}
+
+	public void printPlayerStats() {
+		System.out.println("Stats for " + getUsername());
+		System.out.println("Accuracy of guesses: " + getAccuracy());
+		System.out.println("Total guesses made: " + getTotalGuesses());
+		System.out.println("Correct guesses: " + getCorrectGuesses());
+		System.out.println("Cryptograms played: " + getCryptogramsPlayed());
+		System.out.println("Cryptograms completed: " + getSolved());
+	}
+	
 }

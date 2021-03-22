@@ -27,8 +27,11 @@ public class Game {
 	public int mapped = 0;//keeps track of how many letters user has mapped a value to
 	private File playerFile;
 	String saveFileName = "save.json";
+	private Player currentPlayer;
+
+
 	public Game() {
-		File playerFile = new File("PlayerFile.txt");
+		playerFile = new File("playerFile.txt");
 		try {
 			onStartup();
 		} catch (IOException e){
@@ -36,7 +39,7 @@ public class Game {
 		}
 	}
 
-	public Game(ArrayList<String> guesses, ArrayList<String> crypt, ArrayList<String> crypt2, ArrayList<String> values, ArrayList<Integer> valuePlaces, ArrayList<String> answer, Cryptogram cryptogram, int mapped){
+	public Game(ArrayList<String> guesses, ArrayList<String> crypt, ArrayList<String> crypt2, ArrayList<String> values, ArrayList<Integer> valuePlaces, ArrayList<String> answer, Cryptogram cryptogram, int mapped) {
 		// constructor to load game
 		this();
 		this.guesses = guesses;
@@ -48,6 +51,8 @@ public class Game {
 		this.cryptogram = cryptogram;
 		this.mapped = mapped;
 	}
+
+
 	public File getPlayerFile() {
 		return playerFile;
 	}
@@ -111,7 +116,7 @@ public class Game {
 	
 	public void enterLetter(Player player) {
 		boolean guessed = false;//checks if guess has been made or value has been replaced
-		boolean correct = false;//checks if whole cryptogram is correct
+		boolean correct = false;
 		Scanner myObj = new Scanner(System.in);
 		System.out.println("Please enter your guess: ");
 		String guess = myObj.nextLine().trim().toUpperCase();  //this is the guess
@@ -121,8 +126,8 @@ public class Game {
 		if (guessed) {
 			System.out.println("You have already guessed this letter. Please try again.");//error message if letter has been guessed
 			checkPrint = true;
-		} else {
-			guesses.add(guess);//guess has been added to array of guesses
+		}else {
+
 			System.out.println("Please enter the value to replace your guess with: ");
 			String value = myObj.nextLine().trim().toUpperCase();// get value to replace with guess
 			//find value in cryptogram array crypt
@@ -185,26 +190,32 @@ public class Game {
 				player.addTotalGuesses();
 				player.updateAccuracy();
 			}
-			if(mapped == (crypt2.size()/2)) {
-				player.incrementCryptogramsPlayed();
-				for(int i = 0; i <(answer.size())/2;i++) {
-					if(crypt.get(i).equals(answer.get(i))) {
-						correct = true;
-					}else {
-						correct = false;
-						break;
-					}
-				}
-				if(!correct) {
-				System.out.println("User has failed cryptogram :(");
-				}else {
-					System.out.println("User has successfully completed cryptogram!!");
-					player.addSolved();
-				}
-			}
+			System.out.println();
+			checkMapped(player);
 
 		}
 		//myObj.close();
+	}
+	public void checkMapped(Player player) {//helper method for enter letter to see if user has mapped all values
+		boolean correct = false;//checks if whole cryptogram is correct
+		if(mapped == (crypt2.size()/2)) {
+			player.incrementCryptogramsPlayed();
+			for(int i = 0; i <(answer.size())/2;i++) {
+				if(crypt.get(i).equals(answer.get(i))) {
+					correct = true;
+				}else {
+					correct = false;
+					break;
+				}
+			}
+			if(!correct) {
+			System.out.println("User has failed cryptogram :(");
+			}else {
+				System.out.println("User has successfully completed cryptogram!!");
+				player.addSolved();
+			}
+		}
+		
 	}
 	
 	public void undoLetter() {    
@@ -334,6 +345,4 @@ public class Game {
 	public Cryptogram getCryptogram() {
 		return cryptogram;
 	}
-
-
 }

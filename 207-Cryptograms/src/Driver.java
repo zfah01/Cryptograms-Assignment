@@ -22,11 +22,15 @@ public class Driver {
 
 		String username = "";
 		do {
-			System.out.println("Enter your name: ");
+			System.out.println("Enter your username: ");
 			username = myScan.nextLine().trim().toLowerCase();
 		} while (username.trim().isEmpty());
 
-		Player player = new Player(username);
+		Players playerGameMapping = new Players();
+		playerGameMapping.loadPlayers();
+
+		Player player = loadPlayer(username, playerGameMapping);
+
 		Game game = null;
 		System.out.println("Do you want to load a previously saved game? [y] or [n]");
 		if (myScan.nextLine().toLowerCase().trim().equals("y"))
@@ -42,7 +46,7 @@ public class Driver {
 		label:
 		while (true) {
 			System.out.println("What would you like to do? enter the number");
-			System.out.println("(1) make guess    (2) remove guess     (3) give up      (4) leave    (5) Save Game");
+			System.out.println("(1) make guess    (2) remove guess     (3) give up      (4) leave    (5) Save Game    (6) See my stats");
 			response = myScan.nextLine().trim();
 			switch (response) {
 				case "1":
@@ -57,9 +61,19 @@ public class Driver {
 					game.printEncryption();
 					break;
 				case "4":
+					System.out.print("Do you want to save your profile? [y] or [n]");
+					response = myScan.nextLine().trim();
+					if (response.equalsIgnoreCase("y")) {
+						//game.callSavePlayer(player);
+						//player.savePlayer(game.getPlayerFile());
+						playerGameMapping.savePlayer(player);
+					}
 					break label;
 				case "5":
 					game.saveGame(player);
+					break;
+				case "6":
+					player.printPlayerStats();
 					break;
 				default:
 					System.out.println("I'm sorry that doesn't seem to be a valid input, please try again");
@@ -67,6 +81,9 @@ public class Driver {
 			}
 		}
 	}
+
+
+
 	private static Game loadGame(Player player){
 		Gson gson = new Gson();
 		int chosenGameIndex;
@@ -190,6 +207,18 @@ public class Driver {
 		Game loadedGame =  new Game(guesses, crypt, crypt2, values, valuePlaces, answer, cryptogram, mapped);
 		System.out.println("Game loaded: " + cType + " - " + encryptedPhrase + " - " + gameDate);
 		return loadedGame;
+	}
+
+	public static Player loadPlayer(String username, Players playerGameMapping) {
+		Player currentPlayer = playerGameMapping.findPlayer(username);
+		if (currentPlayer == null) {
+			System.out.println("This player does not exist!");
+			System.out.println("New Player has been created: " + username);
+			currentPlayer = new Player(username);
+			playerGameMapping.addPlayer(currentPlayer);
+		}
+		return currentPlayer;
+
 	}
 }
 
