@@ -18,14 +18,13 @@ public class playersTest {
 	@Test
 	public void testLoadStats() {
 
-		InputStream stdin = System.in;
+
 		//player with the username "Harry" exists
-		ByteArrayInputStream in = new ByteArrayInputStream("Harry".getBytes());
-		System.setIn(in);
-		Player test = game.loadPlayer();
-		game.printPlayerStats();
-		System.setIn(stdin);
-        assertTrue(test.getAccuracy() == 24.6); //checks if player has accuracy of 24.6
+		Players playerGameMapping = new Players();
+		playerGameMapping.loadPlayers();
+		Player player = Driver.loadPlayer("Harry", playerGameMapping);
+		player.printPlayerStats();
+        assertEquals(24.6, player.getAccuracy()); //checks if player has accuracy of 24.6
 	}
 	
 /*	@Test(expected = FileNotFoundException.class)
@@ -46,15 +45,11 @@ public class playersTest {
 	@Test
 	public void testCreateNewPlayer() {
 
-		InputStream stdin = System.in;
-		// player with the name "test" does not exist
-		ByteArrayInputStream in = new ByteArrayInputStream("test".getBytes()); 
-		System.setIn(in);
-		Player newPlayer = game.loadPlayer();
-		game.printPlayerStats();
-		System.setIn(stdin);
-	    assertTrue(newPlayer.getCryptogramsPlayed() == 0);
-	    assertNotNull(newPlayer); //newPlayer has been created
+		Players playerGameMapping = new Players();
+		playerGameMapping.loadPlayers();
+		Player player = Driver.loadPlayer("Harry", playerGameMapping);
+	    assertEquals(0, player.getCryptogramsPlayed());
+	    assertNotNull(player); //newPlayer has been created
 	   
 	}
 	

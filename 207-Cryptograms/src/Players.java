@@ -67,7 +67,7 @@ public class Players {
 		try (Scanner scanner = new Scanner(file)) {
        
 			while (scanner.hasNext()) {
-				String username = scanner.next();
+				String username = scanner.nextLine().trim();
 				double accuracy = scanner.nextDouble();
 				int correctGuesses = scanner.nextInt();
 				int totalGuesses = scanner.nextInt();

@@ -273,7 +273,7 @@ class GameTest {
 		Cryptogram cryp = new LettersCryptogram("testing");
 		Player player = new Player(0, 0, 0, 0, 0, "name");
 		game.establishCrypt(cryp);
-		game.callSavePlayer(player);
+		//game.callSavePlayer(player);
 		boolean fileExists = player.getPlayerFile().exists();
 		assertTrue(fileExists);
 	}
@@ -284,7 +284,7 @@ class GameTest {
 		Player player = new Player(0, 0, 0, 0, 0, "name");
 		String saveUser;
 		game.establishCrypt(cryp);
-		game.callSavePlayer(player);
+		//game.callSavePlayer(player);
 		Scanner reading = new Scanner(player.getPlayerFile());
 		saveUser = reading.next();
 		assertEquals(saveUser, player.getUsername());
