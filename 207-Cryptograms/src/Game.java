@@ -39,7 +39,7 @@ public class Game {
 		} catch (IOException e) {
 			//e.printStackTrace();
 			System.out.println("Error with reading the file");
-			exit(1);
+			System.exit(1);
 		}
 	}
 
