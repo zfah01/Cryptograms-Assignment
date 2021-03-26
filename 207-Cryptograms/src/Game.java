@@ -372,5 +372,33 @@ public class Game {
 		}
 	}
 
+	public void getHint(String value) {
+        //Scanner myObj = new Scanner(System.in);
 
+        boolean valueThere = false;
+
+        int replaceAt = 0;
+        for(int i = 0; i < crypt2.size()/2;i++) {
+            if(crypt2.get(i).equals(value)) {
+                valueThere = true;
+                replaceAt = i;//need a value where the value definitely has been
+            }
+        }
+        if(!valueThere) {
+            System.out.println("ERROR: value selected not in cryptogram");
+        }else {
+            for(int i = 0; i < crypt2.size()/2;i++) {
+                if(crypt2.get(i).equals(value)) {
+                    crypt.set(i, answer.get(i));
+                }
+            }
+            System.out.println("You have replaced "+ value +" with "+ answer.get(replaceAt));
+            System.out.println("The new cryptogram is: ");
+            for(int i = 0; i < crypt.size()/2;i++) {
+                System.out.print(crypt.get(i));
+            }
+            System.out.println();
+        }
+
+    }
 }
