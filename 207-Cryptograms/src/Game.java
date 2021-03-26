@@ -37,7 +37,9 @@ public class Game {
 		try {
 			onStartup();
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Error with reading the file");
+			exit(1);
 		}
 	}
 
@@ -175,7 +177,7 @@ public class Game {
 				guesses.add(guess);
 				mapped++;
 				//check if guess was correct?
-				if(cryptogram.getLetter(value).equals(guess)) {
+				if(answer.get(guessedAt).equals(guess)) {
 					player.addCorrectGuesses();
 				}
 				player.addTotalGuesses();
@@ -188,7 +190,7 @@ public class Game {
 					}
 				}
 				guesses.add(guess);//add guess
-				if(cryptogram.getLetter(value).equals(guess)) {
+				if(answer.get(guessedAt).equals(guess)) {
 					player.addCorrectGuesses();
 				}
 				player.addTotalGuesses();
@@ -199,11 +201,11 @@ public class Game {
 				System.out.print(crypt.get(i));
 			}
 			System.out.println();
-			checkMapped(player);
+			checkMapped(player, myObj);
 		}
 		//myObj.close();
 	}
-	public void checkMapped(Player player) {//helper method for enter letter to see if user has mapped all values
+	public void checkMapped(Player player, Scanner myObj) {//helper method for enter letter to see if user has mapped all values
 		boolean correct = false;//checks if whole cryptogram is correct
 		if(mapped == (crypt2.size()/2)) {
 			player.incrementCryptogramsPlayed();
@@ -220,6 +222,7 @@ public class Game {
 			}else {
 				System.out.println("User has successfully completed cryptogram!!");
 				player.addSolved();
+				decideCryptogram(myObj);
 			}
 		}
 		
