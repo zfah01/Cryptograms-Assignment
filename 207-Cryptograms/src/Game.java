@@ -352,6 +352,25 @@ public class Game {
 	public Cryptogram getCryptogram() {
 		return cryptogram;
 	}
+	
+	public void printScoreBoard(Players playerMap) {
+		ArrayList<Player> players = playerMap.getPlayers();
+		
+		//sorts them using bubble sort
+	        int n = players.size();
+	        for (int i = 0; i < n-1; i++)
+	            for (int j = 0; j < n-i-1; j++)
+	                if (players.get(j).getSolved() < players.get(j+1).getSolved())
+	                {
+	                    // swap arr[j+1] and arr[j]
+	                    Player temp = players.get(j);
+	                    players.set(j, players.get(j+1));//[j] = arr[j+1];
+	                    players.set(j+1, temp);//arr[j+1] = temp;
+	                }
+		for(int i = 0; i < 10 && i < players.size(); i++) {
+			System.out.println(i + ".-----" + players.get(i).getUsername());
+		}
+	}
 
 
 }

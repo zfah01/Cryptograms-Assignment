@@ -18,7 +18,9 @@ public class Players {
 		allPlayers.add(p);
 	}
 	
-
+	public ArrayList<Player> getPlayers() {
+		return allPlayers;
+	}
 	
 	public Player findPlayer(String username) {
 		Player seekedPlayer = null;
