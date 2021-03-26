@@ -50,32 +50,38 @@ public class Driver {
 			System.out.println("What would you like to do? enter the number");
 			System.out.println("(1) make guess    (2) remove guess     (3) give up      (4) See my Stats    (5) Save Game	(6) See ScoreBoard    (7) Leave");
 			response = myScan.nextLine().trim();
-			if(response.equals("1")) {
-				game.enterLetter(player); //this exists in another branch
-					//break;
-			} else if(response.equals("2")) {
-				game.undoLetter(); //this also exists in another branch
-					//break;
-			} else if(response.equals("3")) { 
+			if(response.equals("1")) { //make guess
+				game.enterLetter(player);
+				
+			} else if(response.equals("2")) { //remove guess
+				game.undoLetter();
+				
+			} else if(response.equals("3")) { //give up and choose a new cryptogram 
 				game.giveUp();
 				game.decideCryptogram(myScan);
 				game.printEncryption();
-					//break;
-			} else if(response.equals("7")) {
+				
+			} else if (response.equals("4")){ 
+		        System.out.println("Please enter the value to get hint for: ");
+		        String value = myScan.nextLine().trim().toUpperCase();
+		        game.getHint(value);
+		        
+			} else if(response.equals("5")) { //print the stats of the current player
+				player.printPlayerStats();
+
+			} else if(response.equals("6")) { //saves the current game
+				game.saveGame(player);
+
+			} else if(response.equals("7")){ //prints the scoreboard
+				game.printScoreBoard(playerGameMapping);
+				
+			} else if(response.equals("8")) { //exits the game
 				System.out.print("Do you want to save your profile? [y] or [n]");
 				response = myScan.nextLine().trim();
 				playerGameMapping.savePlayer(response, player.getUsername());
-				//break label;
 				break;
-			} else if(response.equals("5")) {
-				game.saveGame(player);
-					//break;
-			} else if(response.equals("4")) {
-				player.printPlayerStats();
-					//break;
-			} else if(response.equals("6")){
-				game.printScoreBoard(playerGameMapping);
-			} else {
+				
+			} else { //if they don't give a valid answer
 				System.out.println("I'm sorry that doesn't seem to be a valid input, please try again");
 				break;
 			}
