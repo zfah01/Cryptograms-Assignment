@@ -27,7 +27,7 @@ public class Driver {
 			username = myScan.nextLine().trim().toLowerCase();
 		} while (username.trim().isEmpty());
 
-		Players playerGameMapping = new Players();
+		Players playerGameMapping = new Players("playerFile.txt");
 		playerGameMapping.loadPlayers();
 
 		Player player = loadPlayer(username, playerGameMapping);
@@ -45,37 +45,37 @@ public class Driver {
 
 		game.printEncryption();
 		String response;
-		label:
+		//label:
 		while (true) {
 			System.out.println("What would you like to do? enter the number");
 			System.out.println("(1) make guess    (2) remove guess     (3) give up      (4) leave    (5) Save Game    (6) See my stats");
 			response = myScan.nextLine().trim();
-			switch (response) {
-				case "1":
-					game.enterLetter(player); //this exists in another branch
-					break;
-				case "2":
-					game.undoLetter(); //this also exists in another branch
-					break;
-				case "3":
-					game.giveUp();
-					game.decideCryptogram(myScan);
-					game.printEncryption();
-					break;
-				case "4":
-					System.out.print("Do you want to save your profile? [y] or [n]");
-					response = myScan.nextLine().trim();
-					playerGameMapping.savePlayer(response, player.getUsername());
-					break label;
-				case "5":
-					game.saveGame(player);
-					break;
-				case "6":
-					player.printPlayerStats();
-					break;
-				default:
-					System.out.println("I'm sorry that doesn't seem to be a valid input, please try again");
-					break;
+			if(response.equals("1")) {
+				game.enterLetter(player); //this exists in another branch
+					//break;
+			} else if(response.equals("2")) {
+				game.undoLetter(); //this also exists in another branch
+					//break;
+			} else if(response.equals("3")) { 
+				game.giveUp();
+				game.decideCryptogram(myScan);
+				game.printEncryption();
+					//break;
+			} else if(response.equals("4")) {
+				System.out.print("Do you want to save your profile? [y] or [n]");
+				response = myScan.nextLine().trim();
+				playerGameMapping.savePlayer(response, player.getUsername());
+				//break label;
+				break;
+			} else if(response.equals("5")) {
+				game.saveGame(player);
+					//break;
+			} else if(response.equals("6")) {
+				player.printPlayerStats();
+					//break;
+			} else {
+				System.out.println("I'm sorry that doesn't seem to be a valid input, please try again");
+				break;
 			}
 		}
 	}

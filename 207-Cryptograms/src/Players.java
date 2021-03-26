@@ -7,7 +7,11 @@ import java.util.Scanner;
 
 public class Players {
 	private ArrayList <Player> allPlayers = new ArrayList<>() ;
-	private  String playerFile = "playerFile.txt";
+	private  String playerFile;
+	
+	public Players (String file) {
+		this.playerFile = file;
+	}
 	
 	public void addPlayer(Player p) {
 		

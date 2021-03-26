@@ -78,7 +78,7 @@ public class Game {
 	//public for testing purposes
 	public void establishCrypt(Cryptogram crypto) {
 		crypt = crypto.getEncryptedArrayList();
-		crypt2 = crypto.getEncryptedArrayList();
+		crypt2 = new ArrayList<>(crypt);
 		answer = crypto.getPhraseArrayList();
 	}
 	//helper method to create the cryptogram
@@ -194,9 +194,12 @@ public class Game {
 				player.addTotalGuesses();
 				player.updateAccuracy();
 			}
+			System.out.println("You have replaced " + value + " with " + guess);
+			for(int i = 0; i < crypt.size()/2; i++) {
+				System.out.print(crypt.get(i));
+			}
 			System.out.println();
 			checkMapped(player);
-
 		}
 		//myObj.close();
 	}
