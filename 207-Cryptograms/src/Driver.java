@@ -48,7 +48,7 @@ public class Driver {
 		//label:
 		while (true) {
 			System.out.println("What would you like to do? enter the number");
-			System.out.println("(1) make guess    (2) remove guess     (3) give up      (4) leave    (5) Save Game    (6) See my stats");
+			System.out.println("(1) make guess    (2) remove guess     (3) give up      (4) See my Stats    (5) Save Game	(6) See ScoreBoard    (7) Leave");
 			response = myScan.nextLine().trim();
 			if(response.equals("1")) {
 				game.enterLetter(player); //this exists in another branch
@@ -61,7 +61,7 @@ public class Driver {
 				game.decideCryptogram(myScan);
 				game.printEncryption();
 					//break;
-			} else if(response.equals("4")) {
+			} else if(response.equals("7")) {
 				System.out.print("Do you want to save your profile? [y] or [n]");
 				response = myScan.nextLine().trim();
 				playerGameMapping.savePlayer(response, player.getUsername());
@@ -70,17 +70,18 @@ public class Driver {
 			} else if(response.equals("5")) {
 				game.saveGame(player);
 					//break;
-			} else if(response.equals("6")) {
+			} else if(response.equals("4")) {
 				player.printPlayerStats();
 					//break;
+			} else if(response.equals("6")){
+				game.printScoreBoard(playerGameMapping);
 			} else {
 				System.out.println("I'm sorry that doesn't seem to be a valid input, please try again");
 				break;
 			}
 		}
 	}
-
-
+	
 
 	private static Game loadGame(Player player){
 		Gson gson = new Gson();
