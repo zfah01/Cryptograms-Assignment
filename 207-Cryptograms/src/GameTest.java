@@ -231,7 +231,6 @@ class GameTest {
 		
 	}
 	
-	
 	@Test
 	public void testLetterWithoutGuess() {
 	 Game game = new Game();

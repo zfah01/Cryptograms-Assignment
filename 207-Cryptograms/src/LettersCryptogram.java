@@ -29,6 +29,7 @@ public class LettersCryptogram extends Cryptogram{
 	}
 
 	public void printEncryption() {
+		System.out.println(super.getPhrase());
 		String alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z".toUpperCase(); //alphabet better cycles through the letters
 		int[] frequencies = getFrequency();
 		System.out.println(getEncrypted());
