@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GameTest {
+	/*
 	@Test
 	void testOnStartup() throws IOException {
 		Game game = new Game();
@@ -33,7 +34,7 @@ class GameTest {
 		assertEquals(test, game.getPhrases());
 	}
 
-	/*
+
 		@Test
 		void testDecideCryptogramforWrong() throws IOException {
 			
