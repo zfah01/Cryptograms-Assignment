@@ -192,10 +192,11 @@ class GameTest {
 	}
 	
 	
+	
 	@Test
 	void testComplete() {
 		Game game = new Game();
-		Cryptogram cryp = new LettersCryptogram("testing");
+		Cryptogram cryp = new LettersCryptogram("TESTING");
 		Player player = new Player(0, 0, 0, 0, 0, null);
 		game.establishCrypt(cryp);
 		game.mapped = 6;
@@ -212,25 +213,26 @@ class GameTest {
 		game.valuePlaces.add(2);
 		game.valuePlaces.add(4);
 		game.valuePlaces.add(5);
-		game.guesses.add("t");
-		game.guesses.add("e");
-		game.guesses.add("s");
-		game.guesses.add("i");
-		game.guesses.add("n");
-		game.crypt.set(0, "t");
-		game.crypt.set(1, "e");
-		game.crypt.set(2, "s");
-		game.crypt.set(3, "t");
-		game.crypt.set(4, "i");
-		game.crypt.set(5, "n");
+		game.guesses.add("T");
+		game.guesses.add("E");
+		game.guesses.add("S");
+		game.guesses.add("I");
+		game.guesses.add("N");
+		game.crypt.set(0, "T");
+		game.crypt.set(1, "E");
+		game.crypt.set(2, "S");
+		game.crypt.set(3, "T");
+		game.crypt.set(4, "I");
+		game.crypt.set(5, "N");
 		System.out.println(cryp.getEncrypted());
 		System.out.println(game.crypt.size());
 		System.out.println(game.crypt2);
-		//game.enterLetter(cryp, player);
+		game.enterLetter(player);
 		assertTrue(player.getSolved() == 1);//checks that solved wasn't incremented
 		
 	}
 	
+	/*
 	@Test
 	public void testLetterWithoutGuess() {
 	 Game game = new Game();
@@ -266,5 +268,24 @@ class GameTest {
 
 
 	*/
+	@Test
+	public void testHint() {
+		Game game = new Game();
+		Cryptogram cryp = new Cryptogram("TEST", "ABCA");
+		game.establishCrypt(cryp);
+		game.getHint("A");
+		assertEquals(game.crypt.get(0), "T");
+		System.out.println(game.crypt);
+	}
+	@Test
+	public void testHintReplace() {
+		Game game = new Game();
+		game.values.add("A");
+		Cryptogram cryp = new Cryptogram("TEST", "ABCA");
+		game.establishCrypt(cryp);
+		game.getHint("A");
+		assertEquals(game.crypt.get(0), "T");
+		System.out.println(game.crypt);
+	}
 
 }
