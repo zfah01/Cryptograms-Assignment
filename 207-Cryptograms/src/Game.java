@@ -1,18 +1,24 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
-import java.io.*;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 public class Game {
 	public ArrayList<String> guesses = new ArrayList<>();//array with letters guessed
@@ -143,7 +149,7 @@ public class Game {
 			for(int i = 0; i < values.size(); i++) {//checks if value has been guessed before
 				if(values.get(i).equals(value)) {
 					guessed = true;
-					guessedAt = valuePlaces.get(i);//gets the position of where the value used to be in the crypt
+					guessedAt = i;//gets the position of where the value used to be in the crypt
 				}else
 					guessed = false;
 				
@@ -161,7 +167,7 @@ public class Game {
 					replaceAt = i;//need a value where the value definitely has been
 				}
 			}
-			if (!valueThere) {
+			if (!valueThere && !guessed) {
 				System.out.println("ERROR: value selected not in cryptogram");
 				return;
 			}
@@ -183,7 +189,7 @@ public class Game {
 				player.addTotalGuesses();
 				player.updateAccuracy();
 			}else {//what happens if this not the first time the value is being mapped
-				for(int i = 0; i<crypt2.size();i++) {
+				for(int i = 0; i<crypt2.size()/2;i++) {
 					if(crypt2.get(i).equals(crypt.get(valuePlaces.get(guessedAt)))) {//this compares what is in crypt to 
 						crypt.remove(i);
 						crypt.add(i, guess);
@@ -379,6 +385,7 @@ public class Game {
         //Scanner myObj = new Scanner(System.in);
 
         boolean valueThere = false;
+        boolean guessed = false;
 
         int replaceAt = 0;
         for(int i = 0; i < crypt2.size()/2;i++) {
@@ -387,7 +394,15 @@ public class Game {
                 replaceAt = i;//need a value where the value definitely has been
             }
         }
-        if(!valueThere) {
+        for(int i = 0; i < values.size(); i++) {//checks if value has been guessed before
+			if(values.get(i).equals(value)) {
+				guessed = true;
+				//guessedAt = i;//gets the position of where the value used to be in the crypt
+			}else
+				guessed = false;
+			
+		}
+        if(!valueThere && !guessed) {
             System.out.println("ERROR: value selected not in cryptogram");
         }else {
             for(int i = 0; i < crypt2.size()/2;i++) {
@@ -396,12 +411,16 @@ public class Game {
                 }
             }
             System.out.println("You have replaced "+ value +" with "+ answer.get(replaceAt));
+            if(guessed)
+            	System.out.println("Previous guess has been overwritten");
             System.out.println("The new cryptogram is: ");
             for(int i = 0; i < crypt.size()/2;i++) {
                 System.out.print(crypt.get(i));
             }
             System.out.println();
-            mapped++;
+            guesses.add(answer.get(replaceAt));
+            values.add(value);
+            valuePlaces.add(replaceAt);
         }
 
     }
