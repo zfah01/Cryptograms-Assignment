@@ -161,7 +161,7 @@ public class Game {
 					replaceAt = i;//need a value where the value definitely has been
 				}
 			}
-			if (!valueThere && !guessed) {
+			if (!valueThere) {
 				System.out.println("ERROR: value selected not in cryptogram");
 				return;
 			}
@@ -401,6 +401,7 @@ public class Game {
                 System.out.print(crypt.get(i));
             }
             System.out.println();
+            mapped++;
         }
 
     }
