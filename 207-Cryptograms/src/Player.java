@@ -78,7 +78,7 @@ public class Player {
 
 	public void printPlayerStats() {
 		System.out.println("Stats for " + getUsername());
-		System.out.println("Accuracy of guesses: " + getAccuracy());
+		System.out.println("Accuracy of guesses: " + getAccuracy()+ "%");
 		System.out.println("Total guesses made: " + getTotalGuesses());
 		System.out.println("Correct guesses: " + getCorrectGuesses());
 		System.out.println("Cryptograms played: " + getCryptogramsPlayed());
