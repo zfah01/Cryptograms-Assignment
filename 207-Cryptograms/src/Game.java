@@ -424,6 +424,7 @@ public class Game {
             guesses.add(answer.get(replaceAt));
             values.add(value);
             valuePlaces.add(replaceAt);
+			mapped++;
         }
     }
 }
