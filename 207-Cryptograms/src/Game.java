@@ -82,6 +82,7 @@ public class Game {
 		crypt = crypto.getEncryptedArrayList();
 		crypt2 = new ArrayList<>(crypt);
 		answer = crypto.getPhraseArrayList();
+		this.cryptogram = crypto;
 	}
 	//helper method to create the cryptogram
 	private Cryptogram createLetters() {
@@ -133,7 +134,6 @@ public class Game {
 			System.out.println("You have already guessed this letter. Please try again.");//error message if letter has been guessed
 			checkPrint = true;
 		}else {
-
 			System.out.println("Please enter the value to replace your guess with: ");
 			String value = myObj.nextLine().trim().toUpperCase();// get value to replace with guess
 			//find value in cryptogram array crypt
@@ -161,7 +161,7 @@ public class Game {
 					replaceAt = i;//need a value where the value definitely has been
 				}
 			}
-			if (!valueThere && !guessed) {
+			if (!valueThere) {
 				System.out.println("ERROR: value selected not in cryptogram");
 				return;
 			}
@@ -174,10 +174,12 @@ public class Game {
 						crypt.add(i, guess);
 					}
 				}
+				System.out.println("!guessed Loop");
 				guesses.add(guess);
 				mapped++;
 				//check if guess was correct?
-				if(answer.get(guessedAt).equals(guess)) {
+				if(answer.get(guessedAt).toUpperCase().equals(guess.toUpperCase())) {
+					System.out.println("Correct guess code");
 					player.addCorrectGuesses();
 				}
 				player.addTotalGuesses();
@@ -356,7 +358,7 @@ public class Game {
 		return cryptogram;
 	}
 	
-	public void printScoreBoard(Players playerMap) {
+	public ArrayList<Player> printScoreBoard(Players playerMap) {
 		ArrayList<Player> players = playerMap.getPlayers();
 		
 		//sorts them using bubble sort
@@ -373,6 +375,7 @@ public class Game {
 		for(int i = 0; i < 10 && i < players.size(); i++) {
 			System.out.println(i + ".-----" + players.get(i).getUsername());
 		}
+		return players; //returns it for testing reasons
 	}
 
 	public void getHint(String value) {
@@ -401,7 +404,7 @@ public class Game {
                 System.out.print(crypt.get(i));
             }
             System.out.println();
+            mapped++;
         }
-
     }
 }

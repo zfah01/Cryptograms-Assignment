@@ -45,10 +45,9 @@ public class Driver {
 
 		game.printEncryption();
 		String response;
-		//label:
 		while (true) {
 			System.out.println("What would you like to do? enter the number");
-			System.out.println("(1) make guess    (2) remove guess     (3) give up      (4) See my Stats    (5) Save Game	(6) See ScoreBoard    (7) Leave");
+			System.out.println("(1) Make Guess    (2) Remove Guess     (3) Give Up      (4) Get Hint    (5) See my Stats	(6) Sava Game	(7) Show Scoreboard    (8) Leave");
 			response = myScan.nextLine().trim();
 			if(response.equals("1")) { //make guess
 				game.enterLetter(player);
