@@ -269,24 +269,6 @@ class GameTest {
 
 
 	*/
-	@Test
-	public void testHint() {
-		Game game = new Game();
-		Cryptogram cryp = new Cryptogram("TEST", "ABCA");
-		game.establishCrypt(cryp);
-		game.getHint("A");
-		assertEquals(game.crypt.get(0), "T");
-		System.out.println(game.crypt);
-	}
-	@Test
-	public void testHintReplace() {
-		Game game = new Game();
-		game.values.add("A");
-		Cryptogram cryp = new Cryptogram("TEST", "ABCA");
-		game.establishCrypt(cryp);
-		game.getHint("A");
-		assertEquals(game.crypt.get(0), "T");
-		System.out.println(game.crypt);
-	}
+
 
 }

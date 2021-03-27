@@ -180,12 +180,10 @@ public class Game {
 						crypt.add(i, guess);
 					}
 				}
-				System.out.println("!guessed Loop");
 				guesses.add(guess);
 				mapped++;
 				//check if guess was correct?
 				if(answer.get(guessedAt).toUpperCase().equals(guess.toUpperCase())) {
-					System.out.println("Correct guess code");
 					player.addCorrectGuesses();
 				}
 				player.addTotalGuesses();
